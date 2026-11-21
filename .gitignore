@@ -1,0 +1,17 @@
+# Du lieu: de cam commit data
+data/
+*.parquet
+*.csv
+*.zip
+
+# Moi truong ao va rac cua Python
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Spark / he thong
+spark-warehouse/
+metastore_db/
+derby.log
+.DS_Store
