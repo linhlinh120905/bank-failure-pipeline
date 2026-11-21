@@ -1,0 +1,22 @@
+{
+ "download_date": "2026-11-22 04:56",
+ "method": "FDIC public API via src/p1_download.py",
+ "expected_quarters": 170,
+ "downloaded_quarters": 170,
+ "missing_quarters": [],
+ "incomplete_quarters": [],
+ "financial_rows": 1682738,
+ "distinct_cert": 24064,
+ "duplicate_cert_repdte": 0,
+ "coerced_cells_total": 0,
+ "small_tables": {
+  "failures": {
+   "rows": 4117,
+   "api_total": 4117
+  },
+  "institutions": {
+   "rows": 27838,
+   "api_total": 27838
+  }
+ }
+}

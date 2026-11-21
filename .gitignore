@@ -15,3 +15,6 @@ spark-warehouse/
 metastore_db/
 derby.log
 .DS_Store
+# Cho phep commit file ket qua nho
+!reports/
+!reports/*.json
