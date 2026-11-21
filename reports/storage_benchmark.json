@@ -1,0 +1,50 @@
+{
+ "machine": {
+  "cpu": "Intel64 Family 6 Model 78 Stepping 3, GenuineIntel",
+  "cores_physical": 2,
+  "cores_logical": 4,
+  "ram_gb": 8.5,
+  "os": "Windows-10-10.0.19045-SP0",
+  "python": "3.13.7",
+  "polars": "2.1.0",
+  "runs_per_measure": 3
+ },
+ "rows": 1682738,
+ "results": {
+  "CSV raw": {
+   "size_mb": 443.0,
+   "read_all_s": 1.556,
+   "read_3cols_s": 0.477,
+   "filter_2008_2012_s": 0.455,
+   "peak_ram_mb": 801.1
+  },
+  "Parquet 1 file, snappy": {
+   "size_mb": 210.1,
+   "read_all_s": 0.347,
+   "read_3cols_s": 0.024,
+   "filter_2008_2012_s": 0.018,
+   "peak_ram_mb": 619.1
+  },
+  "Parquet 1 file, zstd": {
+   "size_mb": 149.4,
+   "read_all_s": 0.593,
+   "read_3cols_s": 0.039,
+   "filter_2008_2012_s": 0.027,
+   "peak_ram_mb": 601.4
+  },
+  "Parquet by quarter (170 files), zstd": {
+   "size_mb": 202.0,
+   "read_all_s": 0.505,
+   "read_3cols_s": 0.095,
+   "filter_2008_2012_s": 0.046,
+   "peak_ram_mb": 587.7
+  },
+  "Parquet by year (43 files), zstd [chosen]": {
+   "size_mb": 156.5,
+   "read_all_s": 0.545,
+   "read_3cols_s": 0.052,
+   "filter_2008_2012_s": 0.02,
+   "peak_ram_mb": 587.5
+  }
+ }
+}
