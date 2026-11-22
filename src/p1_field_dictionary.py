@@ -16,7 +16,7 @@ import config as C  # noqa: E402
 URL = "https://api.fdic.gov/banks/docs/risview_properties.yaml"
 OUT = C.ROOT / "reports" / "field_dictionary.json"
 
-# Bản nháp nhóm CAMELS cho từng field (cần bạn rà lại với mô tả chính thức)
+# Bản nháp nhóm CAMELS cho từng field 
 GROUP = {
     "CERT": "Key", "REPDTE": "Key", "STNAME": "Descriptor",
     "EQ": "Capital", "RBC1AAJ": "Capital", "RBCRWAJ": "Capital",
