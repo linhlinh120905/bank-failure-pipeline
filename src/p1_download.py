@@ -3,7 +3,7 @@
 #   fdic_download_starter.py (BFT65B course starter, NEU 2026) [1].
 # AI: Claude (Anthropic) đề xuất 3 chỗ sửa: (1) cast_schema ép kiểu cố định và đếm ô bị
 #   coerce, (2) ghi file .tmp rồi replace, nén zstd, (3) ghi download_report.json.
-#   chạy thử 4 quý, đọc lại code, không sửa thêm.
+#   đã đọc code, chạy thử 4 quý rồi tải đủ 170 quý, kiểm tra resume bằng cách xóa một quý rồi chạy lại, thêm lại dòng reconfigure UTF-8 của script thầy.
 import argparse
 import json
 import sys
@@ -16,6 +16,7 @@ import requests
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import config as C  # noqa: E402
+sys.stdout.reconfigure(encoding="utf-8")  # SOURCE: dòng này lấy từ fdic_download_starter.py [1]
 
 SESSION = requests.Session()
 SESSION.headers.update({"User-Agent": "BFT65B-student-pipeline/1.0"})
