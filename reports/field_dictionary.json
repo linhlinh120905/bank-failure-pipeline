@@ -1,0 +1,233 @@
+[
+ {
+  "field": "CERT",
+  "group": "Key",
+  "title": "FDIC Certificate #",
+  "description": "A unique NUMBER assigned by the FDIC used to identify institutions and for the issuance of insurance certificates.",
+  "type": "number"
+ },
+ {
+  "field": "REPDTE",
+  "group": "Key",
+  "title": "Report Date",
+  "description": "The last day of the financial reporting period selected.",
+  "type": "string"
+ },
+ {
+  "field": "STNAME",
+  "group": "Descriptor",
+  "title": "STATE NAME",
+  "description": null,
+  "type": "string"
+ },
+ {
+  "field": "ASSET",
+  "group": "Size",
+  "title": "Total assets",
+  "description": "The sum of all assets owned by the institution including cash, loans, securities, bank premises and other assets. This total does not include off-balance-sheet accounts.",
+  "type": "number"
+ },
+ {
+  "field": "DEP",
+  "group": "Liquidity / funding",
+  "title": "Total deposits",
+  "description": "The sum of all deposits including demand deposits, money market deposits, other savings deposits, time deposits and deposits in foreign offices.",
+  "type": "number"
+ },
+ {
+  "field": "DEPDOM",
+  "group": "Liquidity / funding",
+  "title": "Deposits held in domestic offices",
+  "description": "The sum of all domestic office deposits, including demand deposits, money market deposits, other savings deposits and time deposits.",
+  "type": "number"
+ },
+ {
+  "field": "EQ",
+  "group": "Capital",
+  "title": "Equity capital",
+  "description": "Total equity capital (includes preferred and common stock, surplus and undivided profits).",
+  "type": "number"
+ },
+ {
+  "field": "BRO",
+  "group": "Liquidity / funding",
+  "title": "BROKERED DEP",
+  "description": null,
+  "type": "number"
+ },
+ {
+  "field": "CHBAL",
+  "group": "Liquidity / funding",
+  "title": "CASH & DUE FROM DEPOSITORY INST",
+  "description": null,
+  "type": "number"
+ },
+ {
+  "field": "SC",
+  "group": "Liquidity / funding",
+  "title": "SECURITIES",
+  "description": null,
+  "type": "number"
+ },
+ {
+  "field": "LNLSGR",
+  "group": "Concentration (loan mix)",
+  "title": "LOANS AND LEASES-TOTAL",
+  "description": null,
+  "type": "number"
+ },
+ {
+  "field": "LNLSNET",
+  "group": "Concentration (loan mix)",
+  "title": "LOANS AND LEASES-NET",
+  "description": null,
+  "type": "number"
+ },
+ {
+  "field": "LNRE",
+  "group": "Concentration (loan mix)",
+  "title": "RE LOANS",
+  "description": null,
+  "type": "number"
+ },
+ {
+  "field": "LNCI",
+  "group": "Concentration (loan mix)",
+  "title": "C&I LOANS",
+  "description": null,
+  "type": "number"
+ },
+ {
+  "field": "LNCON",
+  "group": "Concentration (loan mix)",
+  "title": "CONSUMER LOANS",
+  "description": null,
+  "type": "number"
+ },
+ {
+  "field": "LNATRES",
+  "group": "Asset quality",
+  "title": "ALLOW FOR LOANS LOSS ADJUSTED",
+  "description": null,
+  "type": "number"
+ },
+ {
+  "field": "NCLNLS",
+  "group": "Asset quality",
+  "title": "TOTAL N/C-LOANS & LEASES",
+  "description": null,
+  "type": "number"
+ },
+ {
+  "field": "P3ASSET",
+  "group": "Asset quality",
+  "title": "30-89 DAYS P/D-TOTAL ASSETS",
+  "description": null,
+  "type": "number"
+ },
+ {
+  "field": "P9ASSET",
+  "group": "Asset quality",
+  "title": "90+ DAYS P/D-TOTAL ASSETS",
+  "description": null,
+  "type": "number"
+ },
+ {
+  "field": "NAASSET",
+  "group": "Asset quality",
+  "title": "NONACCRUAL-TOTAL ASSETS",
+  "description": null,
+  "type": "number"
+ },
+ {
+  "field": "NTLNLS",
+  "group": "Asset quality",
+  "title": "TOTAL LN&LS NET CHARGE-OFFS",
+  "description": null,
+  "type": "number"
+ },
+ {
+  "field": "ORE",
+  "group": "Asset quality",
+  "title": "OTHER REAL ESTATE OWNED",
+  "description": null,
+  "type": "number"
+ },
+ {
+  "field": "NETINC",
+  "group": "Earnings",
+  "title": "Net income",
+  "description": "Net interest income plus total noninterest income plus realized gains (losses) on securities and extraordinary items, less total noninterest expense, loan loss provisions and income taxes.",
+  "type": "number"
+ },
+ {
+  "field": "INTINC",
+  "group": "Earnings",
+  "title": "TOTAL INTEREST INCOME",
+  "description": null,
+  "type": "number"
+ },
+ {
+  "field": "EINTEXP",
+  "group": "Earnings",
+  "title": "TOTAL INTEREST EXPENSE",
+  "description": null,
+  "type": "number"
+ },
+ {
+  "field": "NONII",
+  "group": "Earnings",
+  "title": "TOTAL NONINTEREST INCOME",
+  "description": null,
+  "type": "number"
+ },
+ {
+  "field": "NONIX",
+  "group": "Earnings",
+  "title": "TOTAL NONINTEREST EXPENSE",
+  "description": null,
+  "type": "number"
+ },
+ {
+  "field": "ELNATR",
+  "group": "Earnings",
+  "title": "PROVISIONS FOR CREDIT LOSSES",
+  "description": null,
+  "type": "number"
+ },
+ {
+  "field": "ROA",
+  "group": "Earnings",
+  "title": "Return on assets (ROA)",
+  "description": "Net income after taxes and extraordinary items (annualized) as a percent of average total assets.",
+  "type": "number"
+ },
+ {
+  "field": "ROE",
+  "group": "Earnings",
+  "title": "Return on Equity (ROE)",
+  "description": "Annualized net income as a percent of average equity on a consolidated basis. Note: If retained earnings are negative, the ratio is shown as NA.",
+  "type": "number"
+ },
+ {
+  "field": "NIMY",
+  "group": "Earnings",
+  "title": "NET INTEREST MARGIN",
+  "description": null,
+  "type": "number"
+ },
+ {
+  "field": "RBC1AAJ",
+  "group": "Capital",
+  "title": "LEVERAGE RATIO-PCA",
+  "description": null,
+  "type": "number"
+ },
+ {
+  "field": "RBCRWAJ",
+  "group": "Capital",
+  "title": "TOTAL RBC RATIO-PCA",
+  "description": null,
+  "type": "number"
+ }
+]
