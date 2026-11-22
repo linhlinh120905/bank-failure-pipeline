@@ -18,3 +18,5 @@ derby.log
 # Cho phep commit file ket qua nho
 !reports/
 !reports/*.json
+src/p1_make_table_a1.py
+report_notes.md
