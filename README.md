@@ -7,7 +7,7 @@ Data pipeline for a bank-failure early-warning system, built on US FDIC Call Rep
 Tested with Python 3.13.7 on Windows 10 (Intel Core i5-6300U, 8 GB RAM, SSD). Internet access is needed for the download and for `p2_exits.py`.
 
 ```powershell
-git clone <https://github.com/linhlinh120905/bank-failure-pipeline>
+git clone https://github.com/linhlinh120905/bank-failure-pipeline
 cd bank-failure-pipeline
 python -m venv .venv
 .venv\Scripts\activate          # if blocked: Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned

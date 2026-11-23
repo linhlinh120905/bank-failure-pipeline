@@ -2,8 +2,8 @@
 #   L02 "Data Cleaning" (03_L02_Data_clearning.pdf, phần Outlier IQR, slide 19-21) [7]; ngưỡng
 #   3×IQR theo từng năm và phép thử YTD (so Q4 với Q1) là lựa chọn của tôi; ý nghĩa field theo
 #   dictionary FDIC [3], [5]; lazy scan_parquet theo bài giảng [2].
-# AI: Claude viết báo cáo chất lượng tự động gồm 10 mục kiểm tra. 
-#  kiểm tra bước nhảy theo năm
+# # AI: Claude viết báo cáo chất lượng tự động gồm 11 mục kiểm tra (mục [11] kiểm tra bước nhảy của trung vị theo năm).
+#   Tôi đã đọc code, chạy, đối chiếu mục [7] (YTD) với phép kiểm tra một ngân hàng ở Part 1 và đối chiếu số liệu với report.
 import json
 import sys
 from pathlib import Path

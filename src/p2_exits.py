@@ -2,7 +2,7 @@
 #   FDIC failure_properties.md và institution_properties.md [5]; mô tả mã CHANGEC1 lấy từ
 #   API FDIC "history", field CHANGECODE_DESC [6]; lazy scan_parquet theo bài giảng [2].
 # AI: Claude viết quy tắc phân loại thoát, các bảng kiểm tra chéo và bộ nhớ đệm
-#   mô tả mã.
+#  Tôi đã đọc code, chạy, gom lại nhóm mã CHANGEC1 theo mô tả từ API và kiểm tra tổng các nhóm = 24.064 ngân hàng.
 import json
 import sys
 from pathlib import Path

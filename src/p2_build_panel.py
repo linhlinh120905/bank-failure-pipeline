@@ -4,6 +4,7 @@
 #   Problem 7 [2]; ý nghĩa FAILDATE theo dictionary FDIC failure_properties.md [5].
 #   AI: Claude viết quy tắc cắt dòng sau FAILDATE, phép đổi YTD thành số từng quý và
 #   các phép kiểm tra sau khi dựng panel. 
+# Tôi đã đọc code, chạy và đối chiếu waterfall: 1.682.738 - 1.092 = 1.681.646, đọc lại khớp, 0 dòng sau FAILDATE.
 import json
 import shutil
 import sys
