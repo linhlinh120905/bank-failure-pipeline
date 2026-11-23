@@ -2,7 +2,7 @@
 #   L02 "Data Cleaning" (03_L02_Data_clearning.pdf, phần Outlier IQR, slide 19-21) [7]; ngưỡng
 #   3×IQR theo từng năm và phép thử YTD (so Q4 với Q1) là lựa chọn của tôi; ý nghĩa field theo
 #   dictionary FDIC [3], [5]; lazy scan_parquet theo bài giảng [2].
-# AI viết báo cáo chất lượng tự động gồm 10 mục kiểm tra. 
+# AI: Claude viết báo cáo chất lượng tự động gồm 10 mục kiểm tra. 
 #  kiểm tra bước nhảy theo năm
 import json
 import sys
@@ -260,3 +260,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+  

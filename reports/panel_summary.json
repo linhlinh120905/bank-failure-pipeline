@@ -1,0 +1,97 @@
+{
+ "rows_in": 1682738,
+ "rows_dropped_after_faildate": 1092,
+ "banks_with_dropped_rows": 267,
+ "rows_panel": 1681646,
+ "rows_read_back": 1681646,
+ "rows_left_after_faildate": 0,
+ "prewindow_failed_banks_kept": 2,
+ "prewindow_failed_rows_kept": 116,
+ "duplicate_cert_qi": 0,
+ "rows_with_gap_before": 33,
+ "flow_columns": [
+  "NETINC",
+  "INTINC",
+  "EINTEXP",
+  "NONII",
+  "NONIX",
+  "ELNATR",
+  "NTLNLS"
+ ],
+ "flow_checks": {
+  "NETINC": {
+   "null_rate": 0.0059,
+   "share_negative": 0.1191
+  },
+  "INTINC": {
+   "null_rate": 0.0059,
+   "share_negative": 0.0013
+  },
+  "EINTEXP": {
+   "null_rate": 0.0066,
+   "share_negative": 0.0014
+  },
+  "NONII": {
+   "null_rate": 0.0059,
+   "share_negative": 0.0123
+  },
+  "NONIX": {
+   "null_rate": 0.0059,
+   "share_negative": 0.0016
+  },
+  "ELNATR": {
+   "null_rate": 0.0286,
+   "share_negative": 0.0344
+  },
+  "NTLNLS": {
+   "null_rate": 0.0499,
+   "share_negative": 0.2079
+  }
+ },
+ "size_mb": 180.5,
+ "columns": [
+  "STNAME",
+  "ASSET",
+  "DEP",
+  "DEPDOM",
+  "EQ",
+  "BRO",
+  "CHBAL",
+  "SC",
+  "LNLSGR",
+  "LNLSNET",
+  "LNRE",
+  "LNCI",
+  "LNCON",
+  "LNATRES",
+  "NCLNLS",
+  "P3ASSET",
+  "P9ASSET",
+  "NAASSET",
+  "NTLNLS_YTD",
+  "ORE",
+  "NETINC_YTD",
+  "INTINC_YTD",
+  "EINTEXP_YTD",
+  "NONII_YTD",
+  "NONIX_YTD",
+  "ELNATR_YTD",
+  "ROA",
+  "ROE",
+  "NIMY",
+  "RBC1AAJ",
+  "RBCRWAJ",
+  "cert",
+  "q",
+  "yr",
+  "qi",
+  "NETINC_Q",
+  "INTINC_Q",
+  "EINTEXP_Q",
+  "NONII_Q",
+  "NONIX_Q",
+  "ELNATR_Q",
+  "NTLNLS_Q",
+  "gap_before"
+ ]
+}
