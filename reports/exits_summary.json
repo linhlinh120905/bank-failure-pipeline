@@ -1,0 +1,178 @@
+{
+ "final_quarter": "2026-06-30",
+ "n_banks": 24064,
+ "exit_counts": {
+  "merger": 15588,
+  "active": 4313,
+  "failure": 2841,
+  "closure_code_not_in_failures": 623,
+  "voluntary_closure": 504,
+  "other_exit": 195
+ },
+ "merger_codes": [
+  213,
+  221,
+  222,
+  223,
+  224,
+  225
+ ],
+ "closure_codes": [
+  211,
+  215,
+  216,
+  217,
+  230,
+  235
+ ],
+ "n_failed": 2841,
+ "n_assisted": 437,
+ "closure_code_not_in_failures": 623,
+ "failures_without_financials": 22,
+ "failures_cert_null_all": 488,
+ "failures_cert_null_from_1984": 0,
+ "failures_faildate_unparsed": 0,
+ "institutions_cert_duplicates": 0,
+ "institutions_enddate_unparsed": 0,
+ "financials_not_in_institutions": 232,
+ "changec1_table": [
+  {
+   "changec1": 223,
+   "n_banks": 14222,
+   "description": "Merger -Without Assistance",
+   "rule_group": "merger"
+  },
+  {
+   "changec1": 211,
+   "n_banks": 2395,
+   "description": "Failure - Whole Institution",
+   "rule_group": "closure"
+  },
+  {
+   "changec1": 221,
+   "n_banks": 809,
+   "description": "Absorbtion - Without Assistance",
+   "rule_group": "merger"
+  },
+  {
+   "changec1": 217,
+   "n_banks": 647,
+   "description": "Passthrough Receivorship/Conservatorship Resolution",
+   "rule_group": "closure"
+  },
+  {
+   "changec1": 240,
+   "n_banks": 504,
+   "description": "Closing - Voluntary",
+   "rule_group": "voluntary"
+  },
+  {
+   "changec1": 213,
+   "n_banks": 337,
+   "description": "Merger - Assisted",
+   "rule_group": "merger"
+  },
+  {
+   "changec1": 810,
+   "n_banks": 305,
+   "description": "Participated in Absorbtion/Consolidation/Merger",
+   "rule_group": "non_exit_event"
+  },
+  {
+   "changec1": 520,
+   "n_banks": 202,
+   "description": "Change in Physical Location (FO or BR)",
+   "rule_group": "non_exit_event"
+  },
+  {
+   "changec1": 224,
+   "n_banks": 191,
+   "description": "Affiliated Institution Merger (Pooling) (i.e. Corporate Reorganization",
+   "rule_group": "merger"
+  },
+  {
+   "changec1": 230,
+   "n_banks": 191,
+   "description": "Closing - Failure Payoff",
+   "rule_group": "closure"
+  },
+  {
+   "changec1": 222,
+   "n_banks": 173,
+   "description": "Consolidated - Without Assistance",
+   "rule_group": "merger"
+  },
+  {
+   "changec1": 235,
+   "n_banks": 109,
+   "description": "Rtc Supervised Payoffs, Liquidations, and Closings",
+   "rule_group": "closure"
+  },
+  {
+   "changec1": 510,
+   "n_banks": 108,
+   "description": "Change in Legal Name (FO or BR)",
+   "rule_group": "non_exit_event"
+  },
+  {
+   "changec1": 820,
+   "n_banks": 53,
+   "description": "Phantom (Interim) Corporate Reorganization",
+   "rule_group": "non_exit_event"
+  },
+  {
+   "changec1": 470,
+   "n_banks": 45,
+   "description": "Change in Primary Regulatory Agency",
+   "rule_group": "non_exit_event"
+  },
+  {
+   "changec1": 216,
+   "n_banks": 23,
+   "description": "Bridge Bank Resolution",
+   "rule_group": "closure"
+  },
+  {
+   "changec1": 440,
+   "n_banks": 18,
+   "description": "Change in Organization Type",
+   "rule_group": "non_exit_event"
+  },
+  {
+   "changec1": 110,
+   "n_banks": 12,
+   "description": "New Institution",
+   "rule_group": "non_exit_event"
+  },
+  {
+   "changec1": 811,
+   "n_banks": 9,
+   "description": "Participated in FDIC Assisted Merger",
+   "rule_group": "non_exit_event"
+  },
+  {
+   "changec1": 215,
+   "n_banks": 3,
+   "description": "Failure Multiple Acquirer",
+   "rule_group": "closure"
+  },
+  {
+   "changec1": 850,
+   "n_banks": 2,
+   "description": null,
+   "rule_group": "unassigned"
+  },
+  {
+   "changec1": 225,
+   "n_banks": 1,
+   "description": "Partial Purchase & Assumption - Without Assistance",
+   "rule_group": "merger"
+  },
+  {
+   "changec1": 610,
+   "n_banks": 1,
+   "description": "Trust Powers Granted",
+   "rule_group": "non_exit_event"
+  }
+ ]
+}
