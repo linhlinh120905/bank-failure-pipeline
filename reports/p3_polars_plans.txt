@@ -1,0 +1,124 @@
+########## filter_project : KẾ HOẠCH THÔ (chưa tối ưu)
+SELECT [len().alias("n"), col("ASSET").sum().alias("s_asset"), col("EQ").sum().alias("s_eq"), col("NCLNLS").sum().alias("s_nclnls"), col("NETINC_Q").sum().alias("s_netinc")]
+  FILTER col("qi") <= 8051
+  FROM
+    FILTER col("qi") >= 8032
+    FROM
+      SELECT [col("cert"), col("qi"), col("ASSET"), col("EQ"), col("NETINC_Q"), col("NCLNLS")]
+        Parquet SCAN [C:/Users/Admin/Documents/bank-failure-pipeline/data/parquet/panel/year=1984/part-0.parquet, ... 42 other sources]
+        PROJECT */42 COLUMNS
+        ESTIMATED ROWS: 1703503
+########## filter_project : KẾ HOẠCH ĐÃ TỐI ƯU
+SELECT [len().alias("n"), col("ASSET").sum().alias("s_asset"), col("EQ").sum().alias("s_eq"), col("NCLNLS").sum().alias("s_nclnls"), col("NETINC_Q").sum().alias("s_netinc")]
+  simple π 4/4 ["ASSET", "EQ", "NCLNLS", ... 1 other column]
+    Parquet SCAN [C:/Users/Admin/Documents/bank-failure-pipeline/data/parquet/panel/year=1984/part-0.parquet, ... 42 other sources]
+    PROJECT 5/42 COLUMNS
+    SELECTION: (col("qi") >= 8032) & (col("qi") <= 8051)
+    ESTIMATED ROWS: 1703503
+
+########## yearly_ratios : KẾ HOẠCH THÔ (chưa tối ưu)
+SORT BY [col("yr")]
+  AGGREGATE[maintain_order: false]
+    [len().alias("n"), col("eq").mean(), col("npl").mean(), col("roaq").mean()] BY [col("yr")]
+    FROM
+    SELECT [(col("qi") // 4).alias("yr"), (col("EQ") / col("ASSET")).alias("eq"), (col("NCLNLS") / col("ASSET")).alias("npl"), (col("NETINC_Q") / col("ASSET")).alias("roaq")]
+      SELECT [col("qi"), col("ASSET"), col("EQ"), col("NCLNLS"), col("NETINC_Q")]
+        Parquet SCAN [C:/Users/Admin/Documents/bank-failure-pipeline/data/parquet/panel/year=1984/part-0.parquet, ... 42 other sources]
+        PROJECT */42 COLUMNS
+        ESTIMATED ROWS: 1703503
+########## yearly_ratios : KẾ HOẠCH ĐÃ TỐI ƯU
+SORT BY [col("yr")]
+  AGGREGATE[maintain_order: false]
+    [len().alias("n"), col("eq").mean(), col("npl").mean(), col("roaq").mean()] BY [col("yr")]
+    FROM
+    SELECT [(col("qi") // 4).alias("yr"), (col("EQ") / col("ASSET")).alias("eq"), (col("NCLNLS") / col("ASSET")).alias("npl"), (col("NETINC_Q") / col("ASSET")).alias("roaq")]
+      Parquet SCAN [C:/Users/Admin/Documents/bank-failure-pipeline/data/parquet/panel/year=1984/part-0.parquet, ... 42 other sources]
+      PROJECT 5/42 COLUMNS
+      ESTIMATED ROWS: 1703503
+
+########## lag_features : KẾ HOẠCH THÔ (chưa tối ưu)
+SELECT [col("g").count().alias("n_valid"), col("g").sum().alias("s_growth"), col("g").mean().alias("m_growth"), col("d").sum().alias("s_droa"), col("d").mean().alias("m_droa")]
+   WITH_COLUMNS:
+   [when(col("ok")).then((col("ASSET") / col("a4")) - 1.0).otherwise(null.cast(Float64)).alias("g"), when(col("ok")).then(col("ROA") - col("r4")).otherwise(null.cast(Float64)).alias("d")] 
+     WITH_COLUMNS:
+     [((col("qi") - col("q4")) == 4).alias("ok")] 
+       WITH_COLUMNS:
+       [col("ASSET").shift([dyn int: 4]).over([col("cert")]).alias("a4"), col("ROA").shift([dyn int: 4]).over([col("cert")]).alias("r4"), col("qi").shift([dyn int: 4]).over([col("cert")]).alias("q4")] 
+        SORT BY [col("cert"), col("qi")]
+          SELECT [col("cert"), col("qi"), col("ASSET"), col("ROA")]
+            Parquet SCAN [C:/Users/Admin/Documents/bank-failure-pipeline/data/parquet/panel/year=1984/part-0.parquet, ... 42 other sources]
+            PROJECT */42 COLUMNS
+            ESTIMATED ROWS: 1703503
+########## lag_features : KẾ HOẠCH ĐÃ TỐI ƯU
+SELECT [col("g").count().alias("n_valid"), col("g").sum().alias("s_growth"), col("g").mean().alias("m_growth"), col("d").sum().alias("s_droa"), col("d").mean().alias("m_droa")]
+  simple π 2/2 ["g", "d"]
+     WITH_COLUMNS:
+     [when(col("ok")).then((col("ASSET") / col("a4")) - 1.0).otherwise(null.cast(Float64)).alias("g"), when(col("ok")).then(col("ROA") - col("r4")).otherwise(null.cast(Float64)).alias("d")] 
+      simple π 5/5 ["ASSET", "ROA", "a4", "r4", ... 1 other column]
+         WITH_COLUMNS:
+         [((col("qi") - col("q4")) == 4).alias("ok")] 
+          simple π 6/6 ["qi", "ASSET", "ROA", "a4", ... 2 other columns]
+             WITH_COLUMNS:
+             [col("ASSET").shift([dyn int: 4]).over([col("cert")]).alias("a4"), col("ROA").shift([dyn int: 4]).over([col("cert")]).alias("r4"), col("qi").shift([dyn int: 4]).over([col("cert")]).alias("q4")] 
+              SORT BY [col("cert"), col("qi")]
+                Parquet SCAN [C:/Users/Admin/Documents/bank-failure-pipeline/data/parquet/panel/year=1984/part-0.parquet, ... 42 other sources]
+                PROJECT 4/42 COLUMNS
+                ESTIMATED ROWS: 1703503
+
+########## ytd_to_quarter : KẾ HOẠCH THÔ (chưa tối ưu)
+SELECT [col("NETINC_r").count().alias("n_NETINC"), col("NETINC_r").sum().alias("s_NETINC"), ((col("NETINC_r").is_null() != col("NETINC_Q").is_null()) | ((col("NETINC_r").is_not_null() & col("NETINC_Q").is_not_null()) & (((col("NETINC_r") - col("NETINC_Q"))).abs() > 0.000001))).sum().alias("mism_NETINC"), col("INTINC_r").count().alias("n_INTINC"), col("INTINC_r").sum().alias("s_INTINC"), ((col("INTINC_r").is_null() != col("INTINC_Q").is_null()) | ((col("INTINC_r").is_not_null() & col("INTINC_Q").is_not_null()) & (((col("INTINC_r") - col("INTINC_Q"))).abs() > 0.000001))).sum().alias("mism_INTINC"), col("NONIX_r").count().alias("n_NONIX"), col("NONIX_r").sum().alias("s_NONIX"), ((col("NONIX_r").is_null() != col("NONIX_Q").is_null()) | ((col("NONIX_r").is_not_null() & col("NONIX_Q").is_not_null()) & (((col("NONIX_r") - col("NONIX_Q"))).abs() > 0.000001))).sum().alias("mism_NONIX")]
+   WITH_COLUMNS:
+   [when((col("qi") % 4) == 0).then(col("NETINC_YTD")).otherwise(when((col("qi") - col("qi").shift([dyn int: 1]).over([col("cert")])) == 1).then(col("NETINC_YTD") - col("NETINC_YTD").shift([dyn int: 1]).over([col("cert")])).otherwise(null.cast(Float64))).alias("NETINC_r"), when((col("qi") % 4) == 0).then(col("INTINC_YTD")).otherwise(when((col("qi") - col("qi").shift([dyn int: 1]).over([col("cert")])) == 1).then(col("INTINC_YTD") - col("INTINC_YTD").shift([dyn int: 1]).over([col("cert")])).otherwise(null.cast(Float64))).alias("INTINC_r"), when((col("qi") % 4) == 0).then(col("NONIX_YTD")).otherwise(when((col("qi") - col("qi").shift([dyn int: 1]).over([col("cert")])) == 1).then(col("NONIX_YTD") - col("NONIX_YTD").shift([dyn int: 1]).over([col("cert")])).otherwise(null.cast(Float64))).alias("NONIX_r")] 
+    SORT BY [col("cert"), col("qi")]
+      SELECT [col("cert"), col("qi"), col("NETINC_YTD"), col("INTINC_YTD"), col("NONIX_YTD"), col("NETINC_Q"), col("INTINC_Q"), col("NONIX_Q")]
+        Parquet SCAN [C:/Users/Admin/Documents/bank-failure-pipeline/data/parquet/panel/year=1984/part-0.parquet, ... 42 other sources]
+        PROJECT */42 COLUMNS
+        ESTIMATED ROWS: 1703503
+########## ytd_to_quarter : KẾ HOẠCH ĐÃ TỐI ƯU
+SELECT [col("NETINC_r").count().alias("n_NETINC"), col("NETINC_r").sum().alias("s_NETINC"), ((col("NETINC_r").is_null() != col("NETINC_Q").is_null()) | ((col("NETINC_r").is_not_null() & col("NETINC_Q").is_not_null()) & (((col("NETINC_r") - col("NETINC_Q"))).abs() > 0.000001))).sum().alias("mism_NETINC"), col("INTINC_r").count().alias("n_INTINC"), col("INTINC_r").sum().alias("s_INTINC"), ((col("INTINC_r").is_null() != col("INTINC_Q").is_null()) | ((col("INTINC_r").is_not_null() & col("INTINC_Q").is_not_null()) & (((col("INTINC_r") - col("INTINC_Q"))).abs() > 0.000001))).sum().alias("mism_INTINC"), col("NONIX_r").count().alias("n_NONIX"), col("NONIX_r").sum().alias("s_NONIX"), ((col("NONIX_r").is_null() != col("NONIX_Q").is_null()) | ((col("NONIX_r").is_not_null() & col("NONIX_Q").is_not_null()) & (((col("NONIX_r") - col("NONIX_Q"))).abs() > 0.000001))).sum().alias("mism_NONIX")]
+  simple π 6/6 ["NETINC_r", "NETINC_Q", ... 4 other columns]
+    simple π 11/11 ["cert", "qi", "NETINC_YTD", ... 8 other columns]
+       WITH_COLUMNS:
+       [when(col("__POLARS_CSER_0x100000005")).then(col("NETINC_YTD")).otherwise(when((col("qi") - col("qi").shift([dyn int: 1]).over([col("cert")])) == 1).then(col("NETINC_YTD") - col("NETINC_YTD").shift([dyn int: 1]).over([col("cert")])).otherwise(null.cast(Float64))).alias("NETINC_r"), when(col("__POLARS_CSER_0x100000005")).then(col("INTINC_YTD")).otherwise(when((col("qi") - col("qi").shift([dyn int: 1]).over([col("cert")])) == 1).then(col("INTINC_YTD") - col("INTINC_YTD").shift([dyn int: 1]).over([col("cert")])).otherwise(null.cast(Float64))).alias("INTINC_r"), when(col("__POLARS_CSER_0x100000005")).then(col("NONIX_YTD")).otherwise(when((col("qi") - col("qi").shift([dyn int: 1]).over([col("cert")])) == 1).then(col("NONIX_YTD") - col("NONIX_YTD").shift([dyn int: 1]).over([col("cert")])).otherwise(null.cast(Float64))).alias("NONIX_r")] 
+         WITH_COLUMNS:
+         [((col("qi") % 4) == 0).alias("__POLARS_CSER_0x100000005")] 
+          SORT BY [col("cert"), col("qi")]
+            Parquet SCAN [C:/Users/Admin/Documents/bank-failure-pipeline/data/parquet/panel/year=1984/part-0.parquet, ... 42 other sources]
+            PROJECT 8/42 COLUMNS
+            ESTIMATED ROWS: 1703503
+
+########## join_exits : KẾ HOẠCH THÔ (chưa tối ưu)
+SORT BY [col("exit_type")]
+  AGGREGATE[maintain_order: false]
+    [len().alias("n"), col("ASSET").sum().alias("s")] BY [col("exit_type")]
+    FROM
+    LEFT JOIN:
+    LEFT PLAN ON: [col("cert")]
+      SELECT [col("cert"), col("ASSET")]
+        Parquet SCAN [C:/Users/Admin/Documents/bank-failure-pipeline/data/parquet/panel/year=1984/part-0.parquet, ... 42 other sources]
+        PROJECT */42 COLUMNS
+        ESTIMATED ROWS: 1703503
+    RIGHT PLAN ON: [col("cert")]
+      SELECT [col("cert"), col("exit_type")]
+        Parquet SCAN [C:/Users/Admin/Documents/bank-failure-pipeline/data/parquet/exits.parquet]
+        PROJECT */17 COLUMNS
+        ESTIMATED ROWS: 24064
+    END LEFT JOIN
+########## join_exits : KẾ HOẠCH ĐÃ TỐI ƯU
+SORT BY [col("exit_type")]
+  AGGREGATE[maintain_order: false]
+    [len().alias("n"), col("ASSET").sum().alias("s")] BY [col("exit_type")]
+    FROM
+    simple π 2/2 ["exit_type", "ASSET"]
+      LEFT JOIN:
+      LEFT PLAN ON: [col("cert")]
+        Parquet SCAN [C:/Users/Admin/Documents/bank-failure-pipeline/data/parquet/panel/year=1984/part-0.parquet, ... 42 other sources]
+        PROJECT 2/42 COLUMNS
+        ESTIMATED ROWS: 1703503
+      RIGHT PLAN ON: [col("cert")]
+        Parquet SCAN [C:/Users/Admin/Documents/bank-failure-pipeline/data/parquet/exits.parquet]
+        PROJECT 2/17 COLUMNS
+        ESTIMATED ROWS: 24064
+      END LEFT JOIN
+
+########## profile: LazyFrame.profile() is not available in Polars 2.1.0 (AttributeRemovedError); per-operation timings are measured in p3_benchmark.py
