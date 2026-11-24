@@ -1,0 +1,155 @@
+{
+ "machine": {
+  "cores_physical": 2,
+  "cores_logical": 4,
+  "ram_gb": 8.5,
+  "memory_used_pct_before": 59.7,
+  "os": "Windows-10-10.0.19045-SP0",
+  "python": "3.13.7",
+  "runs_scored": 3,
+  "warmup_runs_dropped": 1
+ },
+ "results": {
+  "filter_project|pandas_naive": {
+   "t_median": 1.286,
+   "t_min": 1.261,
+   "t_max": 1.652,
+   "ram_delta_mb_median": 1300.0,
+   "ram_peak_mb_median": 1385.0
+  },
+  "filter_project|pandas_tuned": {
+   "t_median": 0.107,
+   "t_min": 0.106,
+   "t_max": 0.108,
+   "ram_delta_mb_median": 43.0,
+   "ram_peak_mb_median": 128.0
+  },
+  "filter_project|polars_read_all": {
+   "t_median": 0.731,
+   "t_min": 0.727,
+   "t_max": 0.757,
+   "ram_delta_mb_median": 671.0,
+   "ram_peak_mb_median": 713.0
+  },
+  "filter_project|polars_lazy": {
+   "t_median": 0.034,
+   "t_min": 0.034,
+   "t_max": 0.034,
+   "ram_delta_mb_median": 26.0,
+   "ram_peak_mb_median": 68.0
+  },
+  "yearly_ratios|pandas_naive": {
+   "t_median": 1.387,
+   "t_min": 1.364,
+   "t_max": 1.394,
+   "ram_delta_mb_median": 1355.0,
+   "ram_peak_mb_median": 1440.0
+  },
+  "yearly_ratios|pandas_tuned": {
+   "t_median": 0.33,
+   "t_min": 0.323,
+   "t_max": 0.333,
+   "ram_delta_mb_median": 241.0,
+   "ram_peak_mb_median": 326.0
+  },
+  "yearly_ratios|polars_read_all": {
+   "t_median": 0.766,
+   "t_min": 0.761,
+   "t_max": 0.786,
+   "ram_delta_mb_median": 722.0,
+   "ram_peak_mb_median": 764.0
+  },
+  "yearly_ratios|polars_lazy": {
+   "t_median": 0.138,
+   "t_min": 0.136,
+   "t_max": 0.195,
+   "ram_delta_mb_median": 109.0,
+   "ram_peak_mb_median": 152.0
+  },
+  "lag_features|pandas_naive": {
+   "t_median": 1.595,
+   "t_min": 1.593,
+   "t_max": 1.626,
+   "ram_delta_mb_median": 1360.0,
+   "ram_peak_mb_median": 1445.0
+  },
+  "lag_features|pandas_tuned": {
+   "t_median": 0.508,
+   "t_min": 0.507,
+   "t_max": 0.511,
+   "ram_delta_mb_median": 276.0,
+   "ram_peak_mb_median": 361.0
+  },
+  "lag_features|polars_read_all": {
+   "t_median": 1.159,
+   "t_min": 1.143,
+   "t_max": 1.169,
+   "ram_delta_mb_median": 1005.0,
+   "ram_peak_mb_median": 1048.0
+  },
+  "lag_features|polars_lazy": {
+   "t_median": 0.493,
+   "t_min": 0.485,
+   "t_max": 0.505,
+   "ram_delta_mb_median": 393.0,
+   "ram_peak_mb_median": 435.0
+  },
+  "ytd_to_quarter|pandas_naive": {
+   "t_median": 1.85,
+   "t_min": 1.832,
+   "t_max": 1.851,
+   "ram_delta_mb_median": 1445.0,
+   "ram_peak_mb_median": 1531.0
+  },
+  "ytd_to_quarter|pandas_tuned": {
+   "t_median": 0.861,
+   "t_min": 0.859,
+   "t_max": 0.875,
+   "ram_delta_mb_median": 447.0,
+   "ram_peak_mb_median": 532.0
+  },
+  "ytd_to_quarter|polars_read_all": {
+   "t_median": 1.325,
+   "t_min": 1.317,
+   "t_max": 1.325,
+   "ram_delta_mb_median": 1176.0,
+   "ram_peak_mb_median": 1218.0
+  },
+  "ytd_to_quarter|polars_lazy": {
+   "t_median": 0.754,
+   "t_min": 0.753,
+   "t_max": 0.793,
+   "ram_delta_mb_median": 559.0,
+   "ram_peak_mb_median": 601.0
+  },
+  "join_exits|pandas_naive": {
+   "t_median": 1.461,
+   "t_min": 1.419,
+   "t_max": 1.532,
+   "ram_delta_mb_median": 1278.0,
+   "ram_peak_mb_median": 1364.0
+  },
+  "join_exits|pandas_tuned": {
+   "t_median": 0.327,
+   "t_min": 0.319,
+   "t_max": 0.381,
+   "ram_delta_mb_median": 149.0,
+   "ram_peak_mb_median": 235.0
+  },
+  "join_exits|polars_read_all": {
+   "t_median": 0.79,
+   "t_min": 0.776,
+   "t_max": 0.797,
+   "ram_delta_mb_median": 715.0,
+   "ram_peak_mb_median": 757.0
+  },
+  "join_exits|polars_lazy": {
+   "t_median": 0.108,
+   "t_min": 0.104,
+   "t_max": 0.116,
+   "ram_delta_mb_median": 86.0,
+   "ram_peak_mb_median": 128.0
+  }
+ },
+ "all_agree": true
+}
