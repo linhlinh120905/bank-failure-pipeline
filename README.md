@@ -26,7 +26,10 @@ Run the scripts in this order (each reads the output of the previous ones):
 | 5 | `python src/p2_exits.py` | 1–2 min (calls the FDIC `history` API once per code, cached in `reports/changec1_codes.json`) | `data/parquet/exits.parquet`, `reports/exits_summary.json` |
 | 6 | `python src/p2_quality_report.py` | 1–4 min | `reports/quality_report.json` |
 | 7 | `python src/p2_build_panel.py` | 1–2 min, needs about 1 GB free RAM | `data/parquet/panel/`, `reports/panel_summary.json` |
-
+| 8 | `python src/p3_polars_core.py` | under 1 min | `reports/p3_polars_results.json`, `reports/p3_polars_plans.txt`, `data/p3_spark_input.parquet` (for Colab) |
+| 9 | `python src/p3_benchmark.py` | 4–8 min; close other applications | `reports/p3_benchmark.json` |
+| 10 | `python src/p3_scaling.py` | 10–20 min; writes about 750 MB of temporary data (deleted at the end) | `reports/p3_scaling.json` |
+Spark (Part 3): open `notebooks/p3_spark_colab.ipynb` in Google Colab, upload `data/p3_spark_input.parquet`, `data/p3_spark_exits.parquet` and `reports/p3_polars_results.json`, run all cells; it downloads `p3_spark_results.json` and `p3_spark_plans.txt` (stored in `reports/`). Spark was run on Colab (Spark 4.0.5, Java 21, local mode) because Java and Hadoop are fragile on Windows and the laptop has only 8 GB.
 Quick test of the download only: `python src/p1_download.py --start 2023-03-31 --end 2023-12-31`.
 A single `run_all.py` will be added when all parts are finished.
 
@@ -36,6 +39,8 @@ A single `run_all.py` will be added when all parts are finished.
 - Storage: 43 yearly files, about 156.5 MB (CSV about 443 MB); row count read back equals the source.
 - Exits (24,064 banks): merger 15,588; active 4,313; failure 2,841; closure code but not in Failures 623; voluntary closure 504; other 195.
 - Panel: 1,682,738 − 1,092 rows after the failure date = 1,681,646 rows; 0 rows after `FAILDATE`; 0 duplicate bank-quarters.
+Quick test of the download only: `python src/p1_download.py --start 2023-03-31 --end 2023-12-31`.
+
 
 ## Repository layout
 
@@ -83,3 +88,6 @@ Data files are never committed. Parts 1–2 contain no random component; the see
 - **Part 2, used for:** drafting `src/p2_exits.py`, `src/p2_quality_report.py`, `src/p2_build_panel.py` and the first draft of the report text for Part 2.
 - **Part 2, how I checked and changed it:** I read and ran each script and checked the output. After the first run I regrouped the `CHANGEC1` codes using the descriptions returned by the API, added a voluntary-closure group, and verified that the exit groups sum to 24,064 banks. I confirmed that the year-to-date conversion gives almost no negative quarterly interest items, and that the panel row count equals the source minus the removed rows.
 - **Part 2, issue found by the audit:** integer columns with nulls were saved as text such as "223.0" by my download step; they are cast back to integers before joins.
+- **Part 3, used for:** drafting `src/p3_ops.py`, `src/p3_polars_core.py`, `src/p3_benchmark.py`, `src/p3_scaling.py`, `notebooks/p3_spark_colab.ipynb` and the first draft of the report text for Part 3.
+- **Part 3, how I checked and changed it:** I read and ran each script; all five operations agree across Polars, pandas and Spark. I added the missing UTF-8 output setting to the benchmark script, removed the Java 17 install step from the notebook after it failed on Colab (Java 21 is preinstalled), and ran the benchmarks with other applications closed.
+- **Part 3, issue found:** `LazyFrame.profile()` is not available in Polars 2.1.0, so the profile output was replaced by a note and per-operation timings come from the benchmark.
