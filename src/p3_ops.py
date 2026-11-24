@@ -2,15 +2,17 @@
 #   window function partitionBy/orderBy với lag theo bài giảng Spark [2], Problem 7;
 #   đặc trưng chỉ dùng quá khứ (shift dương, không dùng dữ liệu quý sau) theo bài giảng L03 [8], P5.
 # AI: Claude viết 5 phép biến đổi tương đương cho Polars và pandas
+import os
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import config as C  # noqa: E402
 
-PANEL_DIR = C.ROOT / "data" / "parquet" / "panel"
-PANEL_GLOB = str(PANEL_DIR / "**" / "*.parquet")
-EXITS = C.ROOT / "data" / "parquet" / "exits.parquet"
+_PANEL_OVERRIDE, _EXITS_OVERRIDE = os.environ.get("P3_PANEL"), os.environ.get("P3_EXITS")
+PANEL_DIR = Path(_PANEL_OVERRIDE) if _PANEL_OVERRIDE else C.ROOT / "data" / "parquet" / "panel"
+PANEL_GLOB = str(PANEL_DIR) if _PANEL_OVERRIDE else str(PANEL_DIR / "**" / "*.parquet")
+EXITS = Path(_EXITS_OVERRIDE) if _EXITS_OVERRIDE else C.ROOT / "data" / "parquet" / "exits.parquet"
 QI0, QI1 = 2008 * 4, 2012 * 4 + 3          # 2008Q1..2012Q4; qi = năm*4 + (quý-1)
 FLOWS = ["NETINC", "INTINC", "NONIX"]
 OPS = ["filter_project", "yearly_ratios", "lag_features", "ytd_to_quarter", "join_exits"]
