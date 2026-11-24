@@ -1,0 +1,47 @@
+{
+ "meta": {
+  "spark": "4.0.5",
+  "cpu_cores_vm": 2,
+  "master": "local[*]",
+  "shuffle_partitions": 8,
+  "input_partitions": 2,
+  "rows": 1681646
+ },
+ "results": {
+  "filter_project": {
+   "match_polars": true,
+   "max_rel_diff": 0.0,
+   "t_median_s": 1.579,
+   "t_min_s": 1.492,
+   "t_max_s": 1.602
+  },
+  "yearly_ratios": {
+   "match_polars": true,
+   "max_rel_diff": 4.440892098500626e-16,
+   "t_median_s": 1.121,
+   "t_min_s": 1.061,
+   "t_max_s": 2.099
+  },
+  "lag_features": {
+   "match_polars": true,
+   "max_rel_diff": 4.021831424636478e-14,
+   "t_median_s": 2.95,
+   "t_min_s": 2.293,
+   "t_max_s": 4.107
+  },
+  "ytd_to_quarter": {
+   "match_polars": true,
+   "max_rel_diff": 0.0,
+   "t_median_s": 3.632,
+   "t_min_s": 3.509,
+   "t_max_s": 4.723
+  },
+  "join_exits": {
+   "match_polars": true,
+   "max_rel_diff": 0.0,
+   "t_median_s": 1.006,
+   "t_min_s": 0.887,
+   "t_max_s": 1.29
+  }
+ }
+}

@@ -1,0 +1,662 @@
+########## filter_project: kế hoạch Spark (sau khi chạy, định dạng formatted)
+== Physical Plan ==
+AdaptiveSparkPlan (15)
++- == Final Plan ==
+   ResultQueryStage (9)
+   +- * HashAggregate (8)
+      +- ShuffleQueryStage (7), Statistics(sizeInBytes=96.0 B, rowCount=2)
+         +- Exchange (6)
+            +- * HashAggregate (5)
+               +- * Project (4)
+                  +- * Filter (3)
+                     +- * ColumnarToRow (2)
+                        +- Scan parquet  (1)
++- == Initial Plan ==
+   HashAggregate (14)
+   +- Exchange (13)
+      +- HashAggregate (12)
+         +- Project (11)
+            +- Filter (10)
+               +- Scan parquet  (1)
+
+
+(1) Scan parquet 
+Output [5]: [ASSET#0, EQ#1, NCLNLS#4, NETINC_Q#5, qi#11L]
+Batched: true
+Location: InMemoryFileIndex [file:/content/p3_spark_input.parquet]
+PushedFilters: [IsNotNull(qi), GreaterThanOrEqual(qi,8032), LessThanOrEqual(qi,8051)]
+ReadSchema: struct<ASSET:double,EQ:double,NCLNLS:double,NETINC_Q:double,qi:bigint>
+
+(2) ColumnarToRow [codegen id : 1]
+Input [5]: [ASSET#0, EQ#1, NCLNLS#4, NETINC_Q#5, qi#11L]
+
+(3) Filter [codegen id : 1]
+Input [5]: [ASSET#0, EQ#1, NCLNLS#4, NETINC_Q#5, qi#11L]
+Condition : ((isnotnull(qi#11L) AND (qi#11L >= 8032)) AND (qi#11L <= 8051))
+
+(4) Project [codegen id : 1]
+Output [4]: [ASSET#0, EQ#1, NETINC_Q#5, NCLNLS#4]
+Input [5]: [ASSET#0, EQ#1, NCLNLS#4, NETINC_Q#5, qi#11L]
+
+(5) HashAggregate [codegen id : 1]
+Input [4]: [ASSET#0, EQ#1, NETINC_Q#5, NCLNLS#4]
+Keys: []
+Functions [5]: [partial_count(1), partial_sum(ASSET#0), partial_sum(EQ#1), partial_sum(NCLNLS#4), partial_sum(NETINC_Q#5)]
+Aggregate Attributes [5]: [count#47L, sum#48, sum#49, sum#50, sum#51]
+Results [5]: [count#52L, sum#53, sum#54, sum#55, sum#56]
+
+(6) Exchange
+Input [5]: [count#52L, sum#53, sum#54, sum#55, sum#56]
+Arguments: SinglePartition, ENSURE_REQUIREMENTS, [plan_id=79]
+
+(7) ShuffleQueryStage
+Output [5]: [count#52L, sum#53, sum#54, sum#55, sum#56]
+Arguments: 0
+
+(8) HashAggregate [codegen id : 2]
+Input [5]: [count#52L, sum#53, sum#54, sum#55, sum#56]
+Keys: []
+Functions [5]: [count(1), sum(ASSET#0), sum(EQ#1), sum(NCLNLS#4), sum(NETINC_Q#5)]
+Aggregate Attributes [5]: [count(1)#42L, sum(ASSET#0)#43, sum(EQ#1)#44, sum(NCLNLS#4)#45, sum(NETINC_Q#5)#46]
+Results [5]: [count(1)#42L AS n#31L, sum(ASSET#0)#43 AS s_asset#32, sum(EQ#1)#44 AS s_eq#33, sum(NCLNLS#4)#45 AS s_nclnls#34, sum(NETINC_Q#5)#46 AS s_netinc#35]
+
+(9) ResultQueryStage
+Output [5]: [n#31L, s_asset#32, s_eq#33, s_nclnls#34, s_netinc#35]
+Arguments: 1
+
+(10) Filter
+Input [5]: [ASSET#0, EQ#1, NCLNLS#4, NETINC_Q#5, qi#11L]
+Condition : ((isnotnull(qi#11L) AND (qi#11L >= 8032)) AND (qi#11L <= 8051))
+
+(11) Project
+Output [4]: [ASSET#0, EQ#1, NETINC_Q#5, NCLNLS#4]
+Input [5]: [ASSET#0, EQ#1, NCLNLS#4, NETINC_Q#5, qi#11L]
+
+(12) HashAggregate
+Input [4]: [ASSET#0, EQ#1, NETINC_Q#5, NCLNLS#4]
+Keys: []
+Functions [5]: [partial_count(1), partial_sum(ASSET#0), partial_sum(EQ#1), partial_sum(NCLNLS#4), partial_sum(NETINC_Q#5)]
+Aggregate Attributes [5]: [count#47L, sum#48, sum#49, sum#50, sum#51]
+Results [5]: [count#52L, sum#53, sum#54, sum#55, sum#56]
+
+(13) Exchange
+Input [5]: [count#52L, sum#53, sum#54, sum#55, sum#56]
+Arguments: SinglePartition, ENSURE_REQUIREMENTS, [plan_id=58]
+
+(14) HashAggregate
+Input [5]: [count#52L, sum#53, sum#54, sum#55, sum#56]
+Keys: []
+Functions [5]: [count(1), sum(ASSET#0), sum(EQ#1), sum(NCLNLS#4), sum(NETINC_Q#5)]
+Aggregate Attributes [5]: [count(1)#42L, sum(ASSET#0)#43, sum(EQ#1)#44, sum(NCLNLS#4)#45, sum(NETINC_Q#5)#46]
+Results [5]: [count(1)#42L AS n#31L, sum(ASSET#0)#43 AS s_asset#32, sum(EQ#1)#44 AS s_eq#33, sum(NCLNLS#4)#45 AS s_nclnls#34, sum(NETINC_Q#5)#46 AS s_netinc#35]
+
+(15) AdaptiveSparkPlan
+Output [5]: [n#31L, s_asset#32, s_eq#33, s_nclnls#34, s_netinc#35]
+Arguments: isFinalPlan=true
+
+
+
+
+########## yearly_ratios: kế hoạch Spark (sau khi chạy, định dạng formatted)
+== Physical Plan ==
+AdaptiveSparkPlan (20)
++- == Final Plan ==
+   ResultQueryStage (13)
+   +- * Sort (12)
+      +- AQEShuffleRead (11)
+         +- ShuffleQueryStage (10), Statistics(sizeInBytes=2.0 KiB, rowCount=43)
+            +- Exchange (9)
+               +- * HashAggregate (8)
+                  +- AQEShuffleRead (7)
+                     +- ShuffleQueryStage (6), Statistics(sizeInBytes=6.0 KiB, rowCount=86)
+                        +- Exchange (5)
+                           +- * HashAggregate (4)
+                              +- * Project (3)
+                                 +- * ColumnarToRow (2)
+                                    +- Scan parquet  (1)
++- == Initial Plan ==
+   Sort (19)
+   +- Exchange (18)
+      +- HashAggregate (17)
+         +- Exchange (16)
+            +- HashAggregate (15)
+               +- Project (14)
+                  +- Scan parquet  (1)
+
+
+(1) Scan parquet 
+Output [5]: [ASSET#0, EQ#1, NCLNLS#4, NETINC_Q#5, qi#11L]
+Batched: true
+Location: InMemoryFileIndex [file:/content/p3_spark_input.parquet]
+ReadSchema: struct<ASSET:double,EQ:double,NCLNLS:double,NETINC_Q:double,qi:bigint>
+
+(2) ColumnarToRow [codegen id : 1]
+Input [5]: [ASSET#0, EQ#1, NCLNLS#4, NETINC_Q#5, qi#11L]
+
+(3) Project [codegen id : 1]
+Output [4]: [FLOOR((cast(qi#11L as double) / 4.0)) AS yr#191L, (EQ#1 / ASSET#0) AS eq#192, (NCLNLS#4 / ASSET#0) AS npl#193, (NETINC_Q#5 / ASSET#0) AS roaq#194]
+Input [5]: [ASSET#0, EQ#1, NCLNLS#4, NETINC_Q#5, qi#11L]
+
+(4) HashAggregate [codegen id : 1]
+Input [4]: [yr#191L, eq#192, npl#193, roaq#194]
+Keys [1]: [yr#191L]
+Functions [4]: [partial_count(1), partial_avg(eq#192), partial_avg(npl#193), partial_avg(roaq#194)]
+Aggregate Attributes [7]: [count#207L, sum#208, count#209L, sum#210, count#211L, sum#212, count#213L]
+Results [8]: [yr#191L, count#214L, sum#215, count#216L, sum#217, count#218L, sum#219, count#220L]
+
+(5) Exchange
+Input [8]: [yr#191L, count#214L, sum#215, count#216L, sum#217, count#218L, sum#219, count#220L]
+Arguments: hashpartitioning(yr#191L, 8), ENSURE_REQUIREMENTS, [plan_id=355]
+
+(6) ShuffleQueryStage
+Output [8]: [yr#191L, count#214L, sum#215, count#216L, sum#217, count#218L, sum#219, count#220L]
+Arguments: 0
+
+(7) AQEShuffleRead
+Input [8]: [yr#191L, count#214L, sum#215, count#216L, sum#217, count#218L, sum#219, count#220L]
+Arguments: coalesced
+
+(8) HashAggregate [codegen id : 2]
+Input [8]: [yr#191L, count#214L, sum#215, count#216L, sum#217, count#218L, sum#219, count#220L]
+Keys [1]: [yr#191L]
+Functions [4]: [count(1), avg(eq#192), avg(npl#193), avg(roaq#194)]
+Aggregate Attributes [4]: [count(1)#203L, avg(eq#192)#204, avg(npl#193)#205, avg(roaq#194)#206]
+Results [5]: [yr#191L, count(1)#203L AS n#195L, avg(eq#192)#204 AS eq#196, avg(npl#193)#205 AS npl#197, avg(roaq#194)#206 AS roaq#198]
+
+(9) Exchange
+Input [5]: [yr#191L, n#195L, eq#196, npl#197, roaq#198]
+Arguments: rangepartitioning(yr#191L ASC NULLS FIRST, 8), ENSURE_REQUIREMENTS, [plan_id=385]
+
+(10) ShuffleQueryStage
+Output [5]: [yr#191L, n#195L, eq#196, npl#197, roaq#198]
+Arguments: 1
+
+(11) AQEShuffleRead
+Input [5]: [yr#191L, n#195L, eq#196, npl#197, roaq#198]
+Arguments: coalesced
+
+(12) Sort [codegen id : 3]
+Input [5]: [yr#191L, n#195L, eq#196, npl#197, roaq#198]
+Arguments: [yr#191L ASC NULLS FIRST], true, 0
+
+(13) ResultQueryStage
+Output [5]: [yr#191L, n#195L, eq#196, npl#197, roaq#198]
+Arguments: 2
+
+(14) Project
+Output [4]: [FLOOR((cast(qi#11L as double) / 4.0)) AS yr#191L, (EQ#1 / ASSET#0) AS eq#192, (NCLNLS#4 / ASSET#0) AS npl#193, (NETINC_Q#5 / ASSET#0) AS roaq#194]
+Input [5]: [ASSET#0, EQ#1, NCLNLS#4, NETINC_Q#5, qi#11L]
+
+(15) HashAggregate
+Input [4]: [yr#191L, eq#192, npl#193, roaq#194]
+Keys [1]: [yr#191L]
+Functions [4]: [partial_count(1), partial_avg(eq#192), partial_avg(npl#193), partial_avg(roaq#194)]
+Aggregate Attributes [7]: [count#207L, sum#208, count#209L, sum#210, count#211L, sum#212, count#213L]
+Results [8]: [yr#191L, count#214L, sum#215, count#216L, sum#217, count#218L, sum#219, count#220L]
+
+(16) Exchange
+Input [8]: [yr#191L, count#214L, sum#215, count#216L, sum#217, count#218L, sum#219, count#220L]
+Arguments: hashpartitioning(yr#191L, 8), ENSURE_REQUIREMENTS, [plan_id=330]
+
+(17) HashAggregate
+Input [8]: [yr#191L, count#214L, sum#215, count#216L, sum#217, count#218L, sum#219, count#220L]
+Keys [1]: [yr#191L]
+Functions [4]: [count(1), avg(eq#192), avg(npl#193), avg(roaq#194)]
+Aggregate Attributes [4]: [count(1)#203L, avg(eq#192)#204, avg(npl#193)#205, avg(roaq#194)#206]
+Results [5]: [yr#191L, count(1)#203L AS n#195L, avg(eq#192)#204 AS eq#196, avg(npl#193)#205 AS npl#197, avg(roaq#194)#206 AS roaq#198]
+
+(18) Exchange
+Input [5]: [yr#191L, n#195L, eq#196, npl#197, roaq#198]
+Arguments: rangepartitioning(yr#191L ASC NULLS FIRST, 8), ENSURE_REQUIREMENTS, [plan_id=333]
+
+(19) Sort
+Input [5]: [yr#191L, n#195L, eq#196, npl#197, roaq#198]
+Arguments: [yr#191L ASC NULLS FIRST], true, 0
+
+(20) AdaptiveSparkPlan
+Output [5]: [yr#191L, n#195L, eq#196, npl#197, roaq#198]
+Arguments: isFinalPlan=true
+
+
+
+
+########## lag_features: kế hoạch Spark (sau khi chạy, định dạng formatted)
+== Physical Plan ==
+AdaptiveSparkPlan (23)
++- == Final Plan ==
+   ResultQueryStage (14)
+   +- * HashAggregate (13)
+      +- ShuffleQueryStage (12), Statistics(sizeInBytes=128.0 B, rowCount=2)
+         +- Exchange (11)
+            +- * HashAggregate (10)
+               +- * Project (9)
+                  +- * Project (8)
+                     +- Window (7)
+                        +- * Sort (6)
+                           +- AQEShuffleRead (5)
+                              +- ShuffleQueryStage (4), Statistics(sizeInBytes=64.1 MiB, rowCount=1.68E+6)
+                                 +- Exchange (3)
+                                    +- * ColumnarToRow (2)
+                                       +- Scan parquet  (1)
++- == Initial Plan ==
+   HashAggregate (22)
+   +- Exchange (21)
+      +- HashAggregate (20)
+         +- Project (19)
+            +- Project (18)
+               +- Window (17)
+                  +- Sort (16)
+                     +- Exchange (15)
+                        +- Scan parquet  (1)
+
+
+(1) Scan parquet 
+Output [4]: [ASSET#0, ROA#9, cert#10L, qi#11L]
+Batched: true
+Location: InMemoryFileIndex [file:/content/p3_spark_input.parquet]
+ReadSchema: struct<ASSET:double,ROA:double,cert:bigint,qi:bigint>
+
+(2) ColumnarToRow [codegen id : 1]
+Input [4]: [ASSET#0, ROA#9, cert#10L, qi#11L]
+
+(3) Exchange
+Input [4]: [ASSET#0, ROA#9, cert#10L, qi#11L]
+Arguments: hashpartitioning(cert#10L, 8), ENSURE_REQUIREMENTS, [plan_id=831]
+
+(4) ShuffleQueryStage
+Output [4]: [ASSET#0, ROA#9, cert#10L, qi#11L]
+Arguments: 0
+
+(5) AQEShuffleRead
+Input [4]: [ASSET#0, ROA#9, cert#10L, qi#11L]
+Arguments: coalesced
+
+(6) Sort [codegen id : 2]
+Input [4]: [ASSET#0, ROA#9, cert#10L, qi#11L]
+Arguments: [cert#10L ASC NULLS FIRST, qi#11L ASC NULLS FIRST], false, 0
+
+(7) Window
+Input [4]: [ASSET#0, ROA#9, cert#10L, qi#11L]
+Arguments: [lag(ASSET#0, -4, null) windowspecdefinition(cert#10L, qi#11L ASC NULLS FIRST, specifiedwindowframe(RowFrame, -4, -4)) AS a4#461, lag(ROA#9, -4, null) windowspecdefinition(cert#10L, qi#11L ASC NULLS FIRST, specifiedwindowframe(RowFrame, -4, -4)) AS r4#462, lag(qi#11L, -4, null) windowspecdefinition(cert#10L, qi#11L ASC NULLS FIRST, specifiedwindowframe(RowFrame, -4, -4)) AS q4#463L], [cert#10L], [qi#11L ASC NULLS FIRST]
+
+(8) Project [codegen id : 3]
+Output [5]: [ASSET#0, ROA#9, a4#461, r4#462, ((qi#11L - q4#463L) = 4) AS ok#464]
+Input [7]: [ASSET#0, ROA#9, cert#10L, qi#11L, a4#461, r4#462, q4#463L]
+
+(9) Project [codegen id : 3]
+Output [2]: [CASE WHEN ok#464 THEN ((ASSET#0 / a4#461) - 1.0) END AS g#465, CASE WHEN ok#464 THEN (ROA#9 - r4#462) END AS d#466]
+Input [5]: [ASSET#0, ROA#9, a4#461, r4#462, ok#464]
+
+(10) HashAggregate [codegen id : 3]
+Input [2]: [g#465, d#466]
+Keys: []
+Functions [5]: [partial_count(g#465), partial_sum(g#465), partial_avg(g#465), partial_sum(d#466), partial_avg(d#466)]
+Aggregate Attributes [7]: [count#487L, sum#488, sum#489, count#490L, sum#491, sum#492, count#493L]
+Results [7]: [count#494L, sum#495, sum#496, count#497L, sum#498, sum#499, count#500L]
+
+(11) Exchange
+Input [7]: [count#494L, sum#495, sum#496, count#497L, sum#498, sum#499, count#500L]
+Arguments: SinglePartition, ENSURE_REQUIREMENTS, [plan_id=895]
+
+(12) ShuffleQueryStage
+Output [7]: [count#494L, sum#495, sum#496, count#497L, sum#498, sum#499, count#500L]
+Arguments: 1
+
+(13) HashAggregate [codegen id : 4]
+Input [7]: [count#494L, sum#495, sum#496, count#497L, sum#498, sum#499, count#500L]
+Keys: []
+Functions [5]: [count(g#465), sum(g#465), avg(g#465), sum(d#466), avg(d#466)]
+Aggregate Attributes [5]: [count(g#465)#482L, sum(g#465)#483, avg(g#465)#484, sum(d#466)#485, avg(d#466)#486]
+Results [5]: [count(g#465)#482L AS n_valid#467L, sum(g#465)#483 AS s_growth#468, avg(g#465)#484 AS m_growth#469, sum(d#466)#485 AS s_droa#470, avg(d#466)#486 AS m_droa#471]
+
+(14) ResultQueryStage
+Output [5]: [n_valid#467L, s_growth#468, m_growth#469, s_droa#470, m_droa#471]
+Arguments: 2
+
+(15) Exchange
+Input [4]: [ASSET#0, ROA#9, cert#10L, qi#11L]
+Arguments: hashpartitioning(cert#10L, 8), ENSURE_REQUIREMENTS, [plan_id=803]
+
+(16) Sort
+Input [4]: [ASSET#0, ROA#9, cert#10L, qi#11L]
+Arguments: [cert#10L ASC NULLS FIRST, qi#11L ASC NULLS FIRST], false, 0
+
+(17) Window
+Input [4]: [ASSET#0, ROA#9, cert#10L, qi#11L]
+Arguments: [lag(ASSET#0, -4, null) windowspecdefinition(cert#10L, qi#11L ASC NULLS FIRST, specifiedwindowframe(RowFrame, -4, -4)) AS a4#461, lag(ROA#9, -4, null) windowspecdefinition(cert#10L, qi#11L ASC NULLS FIRST, specifiedwindowframe(RowFrame, -4, -4)) AS r4#462, lag(qi#11L, -4, null) windowspecdefinition(cert#10L, qi#11L ASC NULLS FIRST, specifiedwindowframe(RowFrame, -4, -4)) AS q4#463L], [cert#10L], [qi#11L ASC NULLS FIRST]
+
+(18) Project
+Output [5]: [ASSET#0, ROA#9, a4#461, r4#462, ((qi#11L - q4#463L) = 4) AS ok#464]
+Input [7]: [ASSET#0, ROA#9, cert#10L, qi#11L, a4#461, r4#462, q4#463L]
+
+(19) Project
+Output [2]: [CASE WHEN ok#464 THEN ((ASSET#0 / a4#461) - 1.0) END AS g#465, CASE WHEN ok#464 THEN (ROA#9 - r4#462) END AS d#466]
+Input [5]: [ASSET#0, ROA#9, a4#461, r4#462, ok#464]
+
+(20) HashAggregate
+Input [2]: [g#465, d#466]
+Keys: []
+Functions [5]: [partial_count(g#465), partial_sum(g#465), partial_avg(g#465), partial_sum(d#466), partial_avg(d#466)]
+Aggregate Attributes [7]: [count#487L, sum#488, sum#489, count#490L, sum#491, sum#492, count#493L]
+Results [7]: [count#494L, sum#495, sum#496, count#497L, sum#498, sum#499, count#500L]
+
+(21) Exchange
+Input [7]: [count#494L, sum#495, sum#496, count#497L, sum#498, sum#499, count#500L]
+Arguments: SinglePartition, ENSURE_REQUIREMENTS, [plan_id=810]
+
+(22) HashAggregate
+Input [7]: [count#494L, sum#495, sum#496, count#497L, sum#498, sum#499, count#500L]
+Keys: []
+Functions [5]: [count(g#465), sum(g#465), avg(g#465), sum(d#466), avg(d#466)]
+Aggregate Attributes [5]: [count(g#465)#482L, sum(g#465)#483, avg(g#465)#484, sum(d#466)#485, avg(d#466)#486]
+Results [5]: [count(g#465)#482L AS n_valid#467L, sum(g#465)#483 AS s_growth#468, avg(g#465)#484 AS m_growth#469, sum(d#466)#485 AS s_droa#470, avg(d#466)#486 AS m_droa#471]
+
+(23) AdaptiveSparkPlan
+Output [5]: [n_valid#467L, s_growth#468, m_growth#469, s_droa#470, m_droa#471]
+Arguments: isFinalPlan=true
+
+
+
+
+########## ytd_to_quarter: kế hoạch Spark (sau khi chạy, định dạng formatted)
+== Physical Plan ==
+AdaptiveSparkPlan (21)
++- == Final Plan ==
+   ResultQueryStage (13)
+   +- * HashAggregate (12)
+      +- ShuffleQueryStage (11), Statistics(sizeInBytes=160.0 B, rowCount=2)
+         +- Exchange (10)
+            +- * HashAggregate (9)
+               +- * Project (8)
+                  +- Window (7)
+                     +- * Sort (6)
+                        +- AQEShuffleRead (5)
+                           +- ShuffleQueryStage (4), Statistics(sizeInBytes=115.5 MiB, rowCount=1.68E+6)
+                              +- Exchange (3)
+                                 +- * ColumnarToRow (2)
+                                    +- Scan parquet  (1)
++- == Initial Plan ==
+   HashAggregate (20)
+   +- Exchange (19)
+      +- HashAggregate (18)
+         +- Project (17)
+            +- Window (16)
+               +- Sort (15)
+                  +- Exchange (14)
+                     +- Scan parquet  (1)
+
+
+(1) Scan parquet 
+Output [8]: [INTINC_Q#2, INTINC_YTD#3, NETINC_Q#5, NETINC_YTD#6, NONIX_Q#7, NONIX_YTD#8, cert#10L, qi#11L]
+Batched: true
+Location: InMemoryFileIndex [file:/content/p3_spark_input.parquet]
+ReadSchema: struct<INTINC_Q:double,INTINC_YTD:double,NETINC_Q:double,NETINC_YTD:double,NONIX_Q:double,NONIX_YTD:double,cert:bigint,qi:bigint>
+
+(2) ColumnarToRow [codegen id : 1]
+Input [8]: [INTINC_Q#2, INTINC_YTD#3, NETINC_Q#5, NETINC_YTD#6, NONIX_Q#7, NONIX_YTD#8, cert#10L, qi#11L]
+
+(3) Exchange
+Input [8]: [INTINC_Q#2, INTINC_YTD#3, NETINC_Q#5, NETINC_YTD#6, NONIX_Q#7, NONIX_YTD#8, cert#10L, qi#11L]
+Arguments: hashpartitioning(cert#10L, 8), ENSURE_REQUIREMENTS, [plan_id=1553]
+
+(4) ShuffleQueryStage
+Output [8]: [INTINC_Q#2, INTINC_YTD#3, NETINC_Q#5, NETINC_YTD#6, NONIX_Q#7, NONIX_YTD#8, cert#10L, qi#11L]
+Arguments: 0
+
+(5) AQEShuffleRead
+Input [8]: [INTINC_Q#2, INTINC_YTD#3, NETINC_Q#5, NETINC_YTD#6, NONIX_Q#7, NONIX_YTD#8, cert#10L, qi#11L]
+Arguments: coalesced
+
+(6) Sort [codegen id : 2]
+Input [8]: [INTINC_Q#2, INTINC_YTD#3, NETINC_Q#5, NETINC_YTD#6, NONIX_Q#7, NONIX_YTD#8, cert#10L, qi#11L]
+Arguments: [cert#10L ASC NULLS FIRST, qi#11L ASC NULLS FIRST], false, 0
+
+(7) Window
+Input [8]: [INTINC_Q#2, INTINC_YTD#3, NETINC_Q#5, NETINC_YTD#6, NONIX_Q#7, NONIX_YTD#8, cert#10L, qi#11L]
+Arguments: [lag(qi#11L, -1, null) windowspecdefinition(cert#10L, qi#11L ASC NULLS FIRST, specifiedwindowframe(RowFrame, -1, -1)) AS qprev#766L, lag(NETINC_YTD#6, -1, null) windowspecdefinition(cert#10L, qi#11L ASC NULLS FIRST, specifiedwindowframe(RowFrame, -1, -1)) AS NETINC_prev#767, lag(INTINC_YTD#3, -1, null) windowspecdefinition(cert#10L, qi#11L ASC NULLS FIRST, specifiedwindowframe(RowFrame, -1, -1)) AS INTINC_prev#769, lag(NONIX_YTD#8, -1, null) windowspecdefinition(cert#10L, qi#11L ASC NULLS FIRST, specifiedwindowframe(RowFrame, -1, -1)) AS NONIX_prev#771], [cert#10L], [qi#11L ASC NULLS FIRST]
+
+(8) Project [codegen id : 3]
+Output [6]: [NETINC_Q#5, INTINC_Q#2, NONIX_Q#7, CASE WHEN ((qi#11L % 4) = 0) THEN NETINC_YTD#6 WHEN ((qi#11L - qprev#766L) = 1) THEN (NETINC_YTD#6 - NETINC_prev#767) END AS NETINC_r#768, CASE WHEN ((qi#11L % 4) = 0) THEN INTINC_YTD#3 WHEN ((qi#11L - qprev#766L) = 1) THEN (INTINC_YTD#3 - INTINC_prev#769) END AS INTINC_r#770, CASE WHEN ((qi#11L % 4) = 0) THEN NONIX_YTD#8 WHEN ((qi#11L - qprev#766L) = 1) THEN (NONIX_YTD#8 - NONIX_prev#771) END AS NONIX_r#772]
+Input [12]: [INTINC_Q#2, INTINC_YTD#3, NETINC_Q#5, NETINC_YTD#6, NONIX_Q#7, NONIX_YTD#8, cert#10L, qi#11L, qprev#766L, NETINC_prev#767, INTINC_prev#769, NONIX_prev#771]
+
+(9) HashAggregate [codegen id : 3]
+Input [6]: [NETINC_Q#5, INTINC_Q#2, NONIX_Q#7, NETINC_r#768, INTINC_r#770, NONIX_r#772]
+Keys: []
+Functions [9]: [partial_count(NETINC_r#768), partial_sum(NETINC_r#768), partial_sum(cast((NOT (isnull(NETINC_r#768) = isnull(NETINC_Q#5)) OR ((isnotnull(NETINC_r#768) AND isnotnull(NETINC_Q#5)) AND (abs((NETINC_r#768 - NETINC_Q#5)) > 1.0E-6))) as int)), partial_count(INTINC_r#770), partial_sum(INTINC_r#770), partial_sum(cast((NOT (isnull(INTINC_r#770) = isnull(INTINC_Q#2)) OR ((isnotnull(INTINC_r#770) AND isnotnull(INTINC_Q#2)) AND (abs((INTINC_r#770 - INTINC_Q#2)) > 1.0E-6))) as int)), partial_count(NONIX_r#772), partial_sum(NONIX_r#772), partial_sum(cast((NOT (isnull(NONIX_r#772) = isnull(NONIX_Q#7)) OR ((isnotnull(NONIX_r#772) AND isnotnull(NONIX_Q#7)) AND (abs((NONIX_r#772 - NONIX_Q#7)) > 1.0E-6))) as int))]
+Aggregate Attributes [9]: [count#806L, sum#807, sum#808L, count#809L, sum#810, sum#811L, count#812L, sum#813, sum#814L]
+Results [9]: [count#815L, sum#816, sum#817L, count#818L, sum#819, sum#820L, count#821L, sum#822, sum#823L]
+
+(10) Exchange
+Input [9]: [count#815L, sum#816, sum#817L, count#818L, sum#819, sum#820L, count#821L, sum#822, sum#823L]
+Arguments: SinglePartition, ENSURE_REQUIREMENTS, [plan_id=1608]
+
+(11) ShuffleQueryStage
+Output [9]: [count#815L, sum#816, sum#817L, count#818L, sum#819, sum#820L, count#821L, sum#822, sum#823L]
+Arguments: 1
+
+(12) HashAggregate [codegen id : 4]
+Input [9]: [count#815L, sum#816, sum#817L, count#818L, sum#819, sum#820L, count#821L, sum#822, sum#823L]
+Keys: []
+Functions [9]: [count(NETINC_r#768), sum(NETINC_r#768), sum(cast((NOT (isnull(NETINC_r#768) = isnull(NETINC_Q#5)) OR ((isnotnull(NETINC_r#768) AND isnotnull(NETINC_Q#5)) AND (abs((NETINC_r#768 - NETINC_Q#5)) > 1.0E-6))) as int)), count(INTINC_r#770), sum(INTINC_r#770), sum(cast((NOT (isnull(INTINC_r#770) = isnull(INTINC_Q#2)) OR ((isnotnull(INTINC_r#770) AND isnotnull(INTINC_Q#2)) AND (abs((INTINC_r#770 - INTINC_Q#2)) > 1.0E-6))) as int)), count(NONIX_r#772), sum(NONIX_r#772), sum(cast((NOT (isnull(NONIX_r#772) = isnull(NONIX_Q#7)) OR ((isnotnull(NONIX_r#772) AND isnotnull(NONIX_Q#7)) AND (abs((NONIX_r#772 - NONIX_Q#7)) > 1.0E-6))) as int))]
+Aggregate Attributes [9]: [count(NETINC_r#768)#797L, sum(NETINC_r#768)#798, sum(cast((NOT (isnull(NETINC_r#768) = isnull(NETINC_Q#5)) OR ((isnotnull(NETINC_r#768) AND isnotnull(NETINC_Q#5)) AND (abs((NETINC_r#768 - NETINC_Q#5)) > 1.0E-6))) as int))#799L, count(INTINC_r#770)#800L, sum(INTINC_r#770)#801, sum(cast((NOT (isnull(INTINC_r#770) = isnull(INTINC_Q#2)) OR ((isnotnull(INTINC_r#770) AND isnotnull(INTINC_Q#2)) AND (abs((INTINC_r#770 - INTINC_Q#2)) > 1.0E-6))) as int))#802L, count(NONIX_r#772)#803L, sum(NONIX_r#772)#804, sum(cast((NOT (isnull(NONIX_r#772) = isnull(NONIX_Q#7)) OR ((isnotnull(NONIX_r#772) AND isnotnull(NONIX_Q#7)) AND (abs((NONIX_r#772 - NONIX_Q#7)) > 1.0E-6))) as int))#805L]
+Results [9]: [count(NETINC_r#768)#797L AS n_NETINC#773L, sum(NETINC_r#768)#798 AS s_NETINC#774, sum(cast((NOT (isnull(NETINC_r#768) = isnull(NETINC_Q#5)) OR ((isnotnull(NETINC_r#768) AND isnotnull(NETINC_Q#5)) AND (abs((NETINC_r#768 - NETINC_Q#5)) > 1.0E-6))) as int))#799L AS mism_NETINC#775L, count(INTINC_r#770)#800L AS n_INTINC#776L, sum(INTINC_r#770)#801 AS s_INTINC#777, sum(cast((NOT (isnull(INTINC_r#770) = isnull(INTINC_Q#2)) OR ((isnotnull(INTINC_r#770) AND isnotnull(INTINC_Q#2)) AND (abs((INTINC_r#770 - INTINC_Q#2)) > 1.0E-6))) as int))#802L AS mism_INTINC#778L, count(NONIX_r#772)#803L AS n_NONIX#779L, sum(NONIX_r#772)#804 AS s_NONIX#780, sum(cast((NOT (isnull(NONIX_r#772) = isnull(NONIX_Q#7)) OR ((isnotnull(NONIX_r#772) AND isnotnull(NONIX_Q#7)) AND (abs((NONIX_r#772 - NONIX_Q#7)) > 1.0E-6))) as int))#805L AS mism_NONIX#781L]
+
+(13) ResultQueryStage
+Output [9]: [n_NETINC#773L, s_NETINC#774, mism_NETINC#775L, n_INTINC#776L, s_INTINC#777, mism_INTINC#778L, n_NONIX#779L, s_NONIX#780, mism_NONIX#781L]
+Arguments: 2
+
+(14) Exchange
+Input [8]: [INTINC_Q#2, INTINC_YTD#3, NETINC_Q#5, NETINC_YTD#6, NONIX_Q#7, NONIX_YTD#8, cert#10L, qi#11L]
+Arguments: hashpartitioning(cert#10L, 8), ENSURE_REQUIREMENTS, [plan_id=1528]
+
+(15) Sort
+Input [8]: [INTINC_Q#2, INTINC_YTD#3, NETINC_Q#5, NETINC_YTD#6, NONIX_Q#7, NONIX_YTD#8, cert#10L, qi#11L]
+Arguments: [cert#10L ASC NULLS FIRST, qi#11L ASC NULLS FIRST], false, 0
+
+(16) Window
+Input [8]: [INTINC_Q#2, INTINC_YTD#3, NETINC_Q#5, NETINC_YTD#6, NONIX_Q#7, NONIX_YTD#8, cert#10L, qi#11L]
+Arguments: [lag(qi#11L, -1, null) windowspecdefinition(cert#10L, qi#11L ASC NULLS FIRST, specifiedwindowframe(RowFrame, -1, -1)) AS qprev#766L, lag(NETINC_YTD#6, -1, null) windowspecdefinition(cert#10L, qi#11L ASC NULLS FIRST, specifiedwindowframe(RowFrame, -1, -1)) AS NETINC_prev#767, lag(INTINC_YTD#3, -1, null) windowspecdefinition(cert#10L, qi#11L ASC NULLS FIRST, specifiedwindowframe(RowFrame, -1, -1)) AS INTINC_prev#769, lag(NONIX_YTD#8, -1, null) windowspecdefinition(cert#10L, qi#11L ASC NULLS FIRST, specifiedwindowframe(RowFrame, -1, -1)) AS NONIX_prev#771], [cert#10L], [qi#11L ASC NULLS FIRST]
+
+(17) Project
+Output [6]: [NETINC_Q#5, INTINC_Q#2, NONIX_Q#7, CASE WHEN ((qi#11L % 4) = 0) THEN NETINC_YTD#6 WHEN ((qi#11L - qprev#766L) = 1) THEN (NETINC_YTD#6 - NETINC_prev#767) END AS NETINC_r#768, CASE WHEN ((qi#11L % 4) = 0) THEN INTINC_YTD#3 WHEN ((qi#11L - qprev#766L) = 1) THEN (INTINC_YTD#3 - INTINC_prev#769) END AS INTINC_r#770, CASE WHEN ((qi#11L % 4) = 0) THEN NONIX_YTD#8 WHEN ((qi#11L - qprev#766L) = 1) THEN (NONIX_YTD#8 - NONIX_prev#771) END AS NONIX_r#772]
+Input [12]: [INTINC_Q#2, INTINC_YTD#3, NETINC_Q#5, NETINC_YTD#6, NONIX_Q#7, NONIX_YTD#8, cert#10L, qi#11L, qprev#766L, NETINC_prev#767, INTINC_prev#769, NONIX_prev#771]
+
+(18) HashAggregate
+Input [6]: [NETINC_Q#5, INTINC_Q#2, NONIX_Q#7, NETINC_r#768, INTINC_r#770, NONIX_r#772]
+Keys: []
+Functions [9]: [partial_count(NETINC_r#768), partial_sum(NETINC_r#768), partial_sum(cast((NOT (isnull(NETINC_r#768) = isnull(NETINC_Q#5)) OR ((isnotnull(NETINC_r#768) AND isnotnull(NETINC_Q#5)) AND (abs((NETINC_r#768 - NETINC_Q#5)) > 1.0E-6))) as int)), partial_count(INTINC_r#770), partial_sum(INTINC_r#770), partial_sum(cast((NOT (isnull(INTINC_r#770) = isnull(INTINC_Q#2)) OR ((isnotnull(INTINC_r#770) AND isnotnull(INTINC_Q#2)) AND (abs((INTINC_r#770 - INTINC_Q#2)) > 1.0E-6))) as int)), partial_count(NONIX_r#772), partial_sum(NONIX_r#772), partial_sum(cast((NOT (isnull(NONIX_r#772) = isnull(NONIX_Q#7)) OR ((isnotnull(NONIX_r#772) AND isnotnull(NONIX_Q#7)) AND (abs((NONIX_r#772 - NONIX_Q#7)) > 1.0E-6))) as int))]
+Aggregate Attributes [9]: [count#806L, sum#807, sum#808L, count#809L, sum#810, sum#811L, count#812L, sum#813, sum#814L]
+Results [9]: [count#815L, sum#816, sum#817L, count#818L, sum#819, sum#820L, count#821L, sum#822, sum#823L]
+
+(19) Exchange
+Input [9]: [count#815L, sum#816, sum#817L, count#818L, sum#819, sum#820L, count#821L, sum#822, sum#823L]
+Arguments: SinglePartition, ENSURE_REQUIREMENTS, [plan_id=1534]
+
+(20) HashAggregate
+Input [9]: [count#815L, sum#816, sum#817L, count#818L, sum#819, sum#820L, count#821L, sum#822, sum#823L]
+Keys: []
+Functions [9]: [count(NETINC_r#768), sum(NETINC_r#768), sum(cast((NOT (isnull(NETINC_r#768) = isnull(NETINC_Q#5)) OR ((isnotnull(NETINC_r#768) AND isnotnull(NETINC_Q#5)) AND (abs((NETINC_r#768 - NETINC_Q#5)) > 1.0E-6))) as int)), count(INTINC_r#770), sum(INTINC_r#770), sum(cast((NOT (isnull(INTINC_r#770) = isnull(INTINC_Q#2)) OR ((isnotnull(INTINC_r#770) AND isnotnull(INTINC_Q#2)) AND (abs((INTINC_r#770 - INTINC_Q#2)) > 1.0E-6))) as int)), count(NONIX_r#772), sum(NONIX_r#772), sum(cast((NOT (isnull(NONIX_r#772) = isnull(NONIX_Q#7)) OR ((isnotnull(NONIX_r#772) AND isnotnull(NONIX_Q#7)) AND (abs((NONIX_r#772 - NONIX_Q#7)) > 1.0E-6))) as int))]
+Aggregate Attributes [9]: [count(NETINC_r#768)#797L, sum(NETINC_r#768)#798, sum(cast((NOT (isnull(NETINC_r#768) = isnull(NETINC_Q#5)) OR ((isnotnull(NETINC_r#768) AND isnotnull(NETINC_Q#5)) AND (abs((NETINC_r#768 - NETINC_Q#5)) > 1.0E-6))) as int))#799L, count(INTINC_r#770)#800L, sum(INTINC_r#770)#801, sum(cast((NOT (isnull(INTINC_r#770) = isnull(INTINC_Q#2)) OR ((isnotnull(INTINC_r#770) AND isnotnull(INTINC_Q#2)) AND (abs((INTINC_r#770 - INTINC_Q#2)) > 1.0E-6))) as int))#802L, count(NONIX_r#772)#803L, sum(NONIX_r#772)#804, sum(cast((NOT (isnull(NONIX_r#772) = isnull(NONIX_Q#7)) OR ((isnotnull(NONIX_r#772) AND isnotnull(NONIX_Q#7)) AND (abs((NONIX_r#772 - NONIX_Q#7)) > 1.0E-6))) as int))#805L]
+Results [9]: [count(NETINC_r#768)#797L AS n_NETINC#773L, sum(NETINC_r#768)#798 AS s_NETINC#774, sum(cast((NOT (isnull(NETINC_r#768) = isnull(NETINC_Q#5)) OR ((isnotnull(NETINC_r#768) AND isnotnull(NETINC_Q#5)) AND (abs((NETINC_r#768 - NETINC_Q#5)) > 1.0E-6))) as int))#799L AS mism_NETINC#775L, count(INTINC_r#770)#800L AS n_INTINC#776L, sum(INTINC_r#770)#801 AS s_INTINC#777, sum(cast((NOT (isnull(INTINC_r#770) = isnull(INTINC_Q#2)) OR ((isnotnull(INTINC_r#770) AND isnotnull(INTINC_Q#2)) AND (abs((INTINC_r#770 - INTINC_Q#2)) > 1.0E-6))) as int))#802L AS mism_INTINC#778L, count(NONIX_r#772)#803L AS n_NONIX#779L, sum(NONIX_r#772)#804 AS s_NONIX#780, sum(cast((NOT (isnull(NONIX_r#772) = isnull(NONIX_Q#7)) OR ((isnotnull(NONIX_r#772) AND isnotnull(NONIX_Q#7)) AND (abs((NONIX_r#772 - NONIX_Q#7)) > 1.0E-6))) as int))#805L AS mism_NONIX#781L]
+
+(21) AdaptiveSparkPlan
+Output [9]: [n_NETINC#773L, s_NETINC#774, mism_NETINC#775L, n_INTINC#776L, s_INTINC#777, mism_INTINC#778L, n_NONIX#779L, s_NONIX#780, mism_NONIX#781L]
+Arguments: isFinalPlan=true
+
+
+
+
+########## join_exits: kế hoạch Spark (sau khi chạy, định dạng formatted)
+== Physical Plan ==
+AdaptiveSparkPlan (29)
++- == Final Plan ==
+   ResultQueryStage (19)
+   +- * Sort (18)
+      +- AQEShuffleRead (17)
+         +- ShuffleQueryStage (16), Statistics(sizeInBytes=288.0 B, rowCount=6)
+            +- Exchange (15)
+               +- * HashAggregate (14)
+                  +- AQEShuffleRead (13)
+                     +- ShuffleQueryStage (12), Statistics(sizeInBytes=576.0 B, rowCount=12)
+                        +- Exchange (11)
+                           +- * HashAggregate (10)
+                              +- * Project (9)
+                                 +- * BroadcastHashJoin LeftOuter BuildRight (8)
+                                    :- * ColumnarToRow (2)
+                                    :  +- Scan parquet  (1)
+                                    +- BroadcastQueryStage (7), Statistics(sizeInBytes=1738.0 KiB, rowCount=2.41E+4)
+                                       +- BroadcastExchange (6)
+                                          +- * Filter (5)
+                                             +- * ColumnarToRow (4)
+                                                +- Scan parquet  (3)
++- == Initial Plan ==
+   Sort (28)
+   +- Exchange (27)
+      +- HashAggregate (26)
+         +- Exchange (25)
+            +- HashAggregate (24)
+               +- Project (23)
+                  +- BroadcastHashJoin LeftOuter BuildRight (22)
+                     :- Scan parquet  (1)
+                     +- BroadcastExchange (21)
+                        +- Filter (20)
+                           +- Scan parquet  (3)
+
+
+(1) Scan parquet 
+Output [2]: [ASSET#0, cert#10L]
+Batched: true
+Location: InMemoryFileIndex [file:/content/p3_spark_input.parquet]
+ReadSchema: struct<ASSET:double,cert:bigint>
+
+(2) ColumnarToRow [codegen id : 2]
+Input [2]: [ASSET#0, cert#10L]
+
+(3) Scan parquet 
+Output [2]: [cert#12L, exit_type#13]
+Batched: true
+Location: InMemoryFileIndex [file:/content/p3_spark_exits.parquet]
+PushedFilters: [IsNotNull(cert)]
+ReadSchema: struct<cert:bigint,exit_type:string>
+
+(4) ColumnarToRow [codegen id : 1]
+Input [2]: [cert#12L, exit_type#13]
+
+(5) Filter [codegen id : 1]
+Input [2]: [cert#12L, exit_type#13]
+Condition : isnotnull(cert#12L)
+
+(6) BroadcastExchange
+Input [2]: [cert#12L, exit_type#13]
+Arguments: HashedRelationBroadcastMode(List(input[0, bigint, false]),false), [plan_id=2210]
+
+(7) BroadcastQueryStage
+Output [2]: [cert#12L, exit_type#13]
+Arguments: 0
+
+(8) BroadcastHashJoin [codegen id : 2]
+Left keys [1]: [cert#10L]
+Right keys [1]: [cert#12L]
+Join type: LeftOuter
+Join condition: None
+
+(9) Project [codegen id : 2]
+Output [2]: [ASSET#0, exit_type#13]
+Input [4]: [ASSET#0, cert#10L, cert#12L, exit_type#13]
+
+(10) HashAggregate [codegen id : 2]
+Input [2]: [ASSET#0, exit_type#13]
+Keys [1]: [exit_type#13]
+Functions [2]: [partial_count(1), partial_sum(ASSET#0)]
+Aggregate Attributes [2]: [count#1199L, sum#1200]
+Results [3]: [exit_type#13, count#1201L, sum#1202]
+
+(11) Exchange
+Input [3]: [exit_type#13, count#1201L, sum#1202]
+Arguments: hashpartitioning(exit_type#13, 8), ENSURE_REQUIREMENTS, [plan_id=2278]
+
+(12) ShuffleQueryStage
+Output [3]: [exit_type#13, count#1201L, sum#1202]
+Arguments: 1
+
+(13) AQEShuffleRead
+Input [3]: [exit_type#13, count#1201L, sum#1202]
+Arguments: coalesced
+
+(14) HashAggregate [codegen id : 3]
+Input [3]: [exit_type#13, count#1201L, sum#1202]
+Keys [1]: [exit_type#13]
+Functions [2]: [count(1), sum(ASSET#0)]
+Aggregate Attributes [2]: [count(1)#1197L, sum(ASSET#0)#1198]
+Results [3]: [exit_type#13, count(1)#1197L AS n#1192L, sum(ASSET#0)#1198 AS s#1193]
+
+(15) Exchange
+Input [3]: [exit_type#13, n#1192L, s#1193]
+Arguments: rangepartitioning(exit_type#13 ASC NULLS FIRST, 8), ENSURE_REQUIREMENTS, [plan_id=2311]
+
+(16) ShuffleQueryStage
+Output [3]: [exit_type#13, n#1192L, s#1193]
+Arguments: 2
+
+(17) AQEShuffleRead
+Input [3]: [exit_type#13, n#1192L, s#1193]
+Arguments: coalesced
+
+(18) Sort [codegen id : 4]
+Input [3]: [exit_type#13, n#1192L, s#1193]
+Arguments: [exit_type#13 ASC NULLS FIRST], true, 0
+
+(19) ResultQueryStage
+Output [3]: [exit_type#13, n#1192L, s#1193]
+Arguments: 3
+
+(20) Filter
+Input [2]: [cert#12L, exit_type#13]
+Condition : isnotnull(cert#12L)
+
+(21) BroadcastExchange
+Input [2]: [cert#12L, exit_type#13]
+Arguments: HashedRelationBroadcastMode(List(input[0, bigint, false]),false), [plan_id=2176]
+
+(22) BroadcastHashJoin
+Left keys [1]: [cert#10L]
+Right keys [1]: [cert#12L]
+Join type: LeftOuter
+Join condition: None
+
+(23) Project
+Output [2]: [ASSET#0, exit_type#13]
+Input [4]: [ASSET#0, cert#10L, cert#12L, exit_type#13]
+
+(24) HashAggregate
+Input [2]: [ASSET#0, exit_type#13]
+Keys [1]: [exit_type#13]
+Functions [2]: [partial_count(1), partial_sum(ASSET#0)]
+Aggregate Attributes [2]: [count#1199L, sum#1200]
+Results [3]: [exit_type#13, count#1201L, sum#1202]
+
+(25) Exchange
+Input [3]: [exit_type#13, count#1201L, sum#1202]
+Arguments: hashpartitioning(exit_type#13, 8), ENSURE_REQUIREMENTS, [plan_id=2181]
+
+(26) HashAggregate
+Input [3]: [exit_type#13, count#1201L, sum#1202]
+Keys [1]: [exit_type#13]
+Functions [2]: [count(1), sum(ASSET#0)]
+Aggregate Attributes [2]: [count(1)#1197L, sum(ASSET#0)#1198]
+Results [3]: [exit_type#13, count(1)#1197L AS n#1192L, sum(ASSET#0)#1198 AS s#1193]
+
+(27) Exchange
+Input [3]: [exit_type#13, n#1192L, s#1193]
+Arguments: rangepartitioning(exit_type#13 ASC NULLS FIRST, 8), ENSURE_REQUIREMENTS, [plan_id=2184]
+
+(28) Sort
+Input [3]: [exit_type#13, n#1192L, s#1193]
+Arguments: [exit_type#13 ASC NULLS FIRST], true, 0
+
+(29) AdaptiveSparkPlan
+Output [3]: [exit_type#13, n#1192L, s#1193]
+Arguments: isFinalPlan=true
+
+
+
