@@ -29,6 +29,9 @@ Run the scripts in this order (each reads the output of the previous ones):
 | 8 | `python src/p3_polars_core.py` | under 1 min | `reports/p3_polars_results.json`, `reports/p3_polars_plans.txt`, `data/p3_spark_input.parquet` (for Colab) |
 | 9 | `python src/p3_benchmark.py` | 4–8 min; close other applications | `reports/p3_benchmark.json` |
 | 10 | `python src/p3_scaling.py` | 10–20 min; writes about 750 MB of temporary data (deleted at the end) | `reports/p3_scaling.json` |
+| 11 | `python src/p4_features.py` | about 1 min | `data/parquet/features/` (one file per year), `reports/feature_catalog.json`, `reports/features_summary.json` |
+| 12 | `python src/p4_pipeline.py` | under 1 min | `reports/preprocessor_dev_fit.json`, `data/preprocessor_dev.joblib` (not committed) |
+| 13 | `python src/p4_leakage_audit.py` | 1–2 min | `reports/leakage_audit.json` (7 of 7 tests must pass) |
 Spark (Part 3): open `notebooks/p3_spark_colab.ipynb` in Google Colab, upload `data/p3_spark_input.parquet`, `data/p3_spark_exits.parquet` and `reports/p3_polars_results.json`, run all cells; it downloads `p3_spark_results.json` and `p3_spark_plans.txt` (stored in `reports/`). Spark was run on Colab (Spark 4.0.5, Java 21, local mode) because Java and Hadoop are fragile on Windows and the laptop has only 8 GB.
 Quick test of the download only: `python src/p1_download.py --start 2023-03-31 --end 2023-12-31`.
 A single `run_all.py` will be added when all parts are finished.
@@ -40,7 +43,7 @@ A single `run_all.py` will be added when all parts are finished.
 - Exits (24,064 banks): merger 15,588; active 4,313; failure 2,841; closure code but not in Failures 623; voluntary closure 504; other 195.
 - Panel: 1,682,738 − 1,092 rows after the failure date = 1,681,646 rows; 0 rows after `FAILDATE`; 0 duplicate bank-quarters.
 Quick test of the download only: `python src/p1_download.py --start 2023-03-31 --end 2023-12-31`.
-
+Part 4: feature table 1,664,117 rows (development 1,193,917, gap 34,754, test 435,446); failures by failure date: development 2,289, 2007 3, test 545; leakage audit 7/7 passed.
 
 ## Repository layout
 
@@ -60,7 +63,7 @@ Data files are never committed. Parts 1–2 contain no random component; the see
 - **Label:** y = 1 if the bank fails (FDIC `RESTYPE` = FAILURE, charter closed) within (q, q + 4 quarters]. Mergers are not failures. `RESTYPE` = ASSISTANCE (mostly banks whose charter survives) is used only in a sensitivity analysis.
 - **Split (fixed before any modelling):** development 1984Q1–2006Q4; gap 2007Q1–2007Q4; test 2008Q1–2025Q2, used once. Labels use quarters up to 2025Q2 only.
 - **Point-in-time:** the panel row for quarter q contains only what was reported for q, plus quarterly flows computed from q and q−1. Failure dates, exit types and other later information live in a separate exit table and enter only through the label.
-
+- **Features:** 29 CAMELS ratios; zeros in RBC1AAJ/RBCRWAJ are treated as missing; missing flags, rbc_total and P3ASSET are excluded from the default model (their missingness identifies the period).
 ## Known limitations
 
 - The data contain no filing dates, so the report of quarter q is assumed available at the end of q (a one-quarter lag is tested later as a sensitivity check). The API returns current values, so restatements cannot be undone.
@@ -79,7 +82,7 @@ Data files are never committed. Parts 1–2 contain no random component; the see
 - [6] FDIC API `history` endpoint, field `CHANGECODE_DESC` (descriptions of `CHANGEC1` codes).
 - [7] N. T. Long, "Data Cleaning", lecture slides, NEU, 2026 (IQR rule, duplicate and missing-value checks).
 - [8] N. T. Long, "Time Series for Finance", lecture slides, NEU, 2026 (point-in-time features, leakage).
-
+- [9] N. T. Long, "Machine Learning Pipeline", lecture slides, NEU, 2026 (fit on training data only). - [10] N. T. Long, "Data Transform", lecture slides, NEU, 2026 (scaling).
 ### AI usage
 - **Tool:** Claude (Anthropic).
 - **Part 1, used for:** drafting `src/p1_download.py`, `src/p1_build_storage.py`, `src/p1_storage_benchmark.py`, `src/p1_field_dictionary.py`, the first draft of the report text for Part 1, and the shortened definitions in report Table A1.
@@ -91,3 +94,5 @@ Data files are never committed. Parts 1–2 contain no random component; the see
 - **Part 3, used for:** drafting `src/p3_ops.py`, `src/p3_polars_core.py`, `src/p3_benchmark.py`, `src/p3_scaling.py`, `notebooks/p3_spark_colab.ipynb` and the first draft of the report text for Part 3.
 - **Part 3, how I checked and changed it:** I read and ran each script; all five operations agree across Polars, pandas and Spark. I added the missing UTF-8 output setting to the benchmark script, removed the Java 17 install step from the notebook after it failed on Colab (Java 21 is preinstalled), and ran the benchmarks with other applications closed.
 - **Part 3, issue found:** `LazyFrame.profile()` is not available in Polars 2.1.0, so the profile output was replaced by a note and per-operation timings come from the benchmark.
+- **Part 4, used for:** drafting `src/p4_features.py`, `src/p4_pipeline.py`, `src/p4_leakage_audit.py`, the list of features with their motivations, and the first draft of the report text for Part 4.
+- **Part 4, how I checked and changed it:** I read and ran each script. I checked that the number of failures per period adds up to the 2,841 failed banks of Part 2, and that the leakage audit passes 7 of 7 tests. I reviewed the feature list and its motivations myself.
