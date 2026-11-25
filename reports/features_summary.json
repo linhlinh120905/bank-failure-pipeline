@@ -1,0 +1,349 @@
+{
+ "panel_rows": 1681646,
+ "feature_rows": 1664117,
+ "by_period": [
+  {
+   "period": "dev",
+   "rows": 1193917,
+   "banks": 23624,
+   "positive_rows": 8711,
+   "positive_rows_broad": 12083,
+   "first_qi": 7936,
+   "last_qi": 8027
+  },
+  {
+   "period": "gap",
+   "rows": 34754,
+   "banks": 8892,
+   "positive_rows": 48,
+   "positive_rows_broad": 53,
+   "first_qi": 8028,
+   "last_qi": 8031
+  },
+  {
+   "period": "test",
+   "rows": 435446,
+   "banks": 8798,
+   "positive_rows": 2134,
+   "positive_rows_broad": 2184,
+   "first_qi": 8032,
+   "last_qi": 8101
+  }
+ ],
+ "banks_with_positive_rows": [
+  {
+   "period": "dev",
+   "banks_with_positive_rows": 2290
+  },
+  {
+   "period": "gap",
+   "banks_with_positive_rows": 27
+  },
+  {
+   "period": "test",
+   "banks_with_positive_rows": 545
+  }
+ ],
+ "failures_by_failure_date": {
+  "dev": 2289,
+  "gap_2007": 3,
+  "test": 545,
+  "after_2025q2": 4
+ },
+ "dev_feature_stats": [
+  {
+   "feature": "eq_assets",
+   "group": "Capital",
+   "default": true,
+   "null_rate": 0.0023577853401869644,
+   "p01": -0.008108981759408912,
+   "median": 0.08686244321057818,
+   "p99": 0.5265148259561667
+  },
+  {
+   "feature": "lev_ratio",
+   "group": "Capital",
+   "default": true,
+   "null_rate": 0.06479093605334374,
+   "p01": 2.350676463411328,
+   "median": 8.745268496310139,
+   "p99": 61.50193371518089
+  },
+  {
+   "feature": "eq_assets_chg4",
+   "group": "Capital",
+   "default": true,
+   "null_rate": 0.0800223131088677,
+   "p01": -0.12003494586963898,
+   "median": 0.000819790969678498,
+   "p99": 0.05227291159587738
+  },
+  {
+   "feature": "nclnls_loans",
+   "group": "Asset quality",
+   "default": true,
+   "null_rate": 0.01120513402522956,
+   "p01": 0.0,
+   "median": 0.009955205467190243,
+   "p99": 0.14661243924213868
+  },
+  {
+   "feature": "nclnls_assets",
+   "group": "Asset quality",
+   "default": true,
+   "null_rate": 0.0020922727459278994,
+   "p01": 0.0,
+   "median": 0.005592969776609724,
+   "p99": 0.08839506172839506
+  },
+  {
+   "feature": "p9_assets",
+   "group": "Asset quality",
+   "default": true,
+   "null_rate": 0.06444585343872312,
+   "p01": 0.0,
+   "median": 0.0009531210732663166,
+   "p99": 0.03230708446038355
+  },
+  {
+   "feature": "nonaccrual_assets",
+   "group": "Asset quality",
+   "default": true,
+   "null_rate": 0.06444501585956143,
+   "p01": 0.0,
+   "median": 0.0025113796892167633,
+   "p99": 0.0580706009161951
+  },
+  {
+   "feature": "ore_assets",
+   "group": "Asset quality",
+   "default": true,
+   "null_rate": 0.002358622919348665,
+   "p01": 0.0,
+   "median": 0.0006086427267194157,
+   "p99": 0.06092578226014999
+  },
+  {
+   "feature": "reserve_loans",
+   "group": "Asset quality",
+   "default": true,
+   "null_rate": 0.011447194402961009,
+   "p01": 0.0,
+   "median": 0.012404652987383758,
+   "p99": 0.06484641638225255
+  },
+  {
+   "feature": "texas_ratio",
+   "group": "Asset quality",
+   "default": true,
+   "null_rate": 0.004275841620481156,
+   "p01": 0.0,
+   "median": 0.07807089709239823,
+   "p99": 10.0
+  },
+  {
+   "feature": "nco_assets_q",
+   "group": "Asset quality",
+   "default": true,
+   "null_rate": 0.06889926184148479,
+   "p01": -0.0014335187918701033,
+   "median": 0.00010452498147057147,
+   "p99": 0.012647489781753682
+  },
+  {
+   "feature": "provision_assets_q",
+   "group": "Asset quality",
+   "default": true,
+   "null_rate": 0.03894491828158909,
+   "p01": -0.0008546197478730531,
+   "median": 0.00033299294054966034,
+   "p99": 0.015279241306638568
+  },
+  {
+   "feature": "nclnls_loans_chg4",
+   "group": "Asset quality",
+   "default": true,
+   "null_rate": 0.08813929276490744,
+   "p01": -0.05843840882932347,
+   "median": -7.732307516759225e-05,
+   "p99": 0.07300333259702631
+  },
+  {
+   "feature": "roa",
+   "group": "Earnings",
+   "default": true,
+   "null_rate": 0.0,
+   "p01": -5.9362574552683895,
+   "median": 1.0125474631623357,
+   "p99": 3.6573628488931664
+  },
+  {
+   "feature": "roa_q_ann",
+   "group": "Earnings",
+   "default": true,
+   "null_rate": 0.006969496204510029,
+   "p01": -7.674352405351551,
+   "median": 1.001494321437691,
+   "p99": 4.235149276700524
+  },
+  {
+   "feature": "nim",
+   "group": "Earnings",
+   "default": true,
+   "null_rate": 0.0,
+   "p01": 0.15204371286291726,
+   "median": 4.246443198357271,
+   "p99": 7.987388334209143
+  },
+  {
+   "feature": "overhead_ratio",
+   "group": "Earnings / Management",
+   "default": true,
+   "null_rate": 0.007892508440704002,
+   "p01": 0.306282722513089,
+   "median": 0.659852820932134,
+   "p99": 3.3055555555555554
+  },
+  {
+   "feature": "roa_chg4",
+   "group": "Earnings",
+   "default": true,
+   "null_rate": 0.07780942896365493,
+   "p01": -4.431625899564725,
+   "median": 0.008369714803179829,
+   "p99": 4.472303845083724
+  },
+  {
+   "feature": "loans_deposits",
+   "group": "Liquidity",
+   "default": true,
+   "null_rate": 0.006162907471792428,
+   "p01": 0.1518796992481203,
+   "median": 0.6787576330328584,
+   "p99": 1.3569783067767325
+  },
+  {
+   "feature": "cash_assets",
+   "group": "Liquidity",
+   "default": true,
+   "null_rate": 8.375791617005202e-07,
+   "p01": 0.002834361178595901,
+   "median": 0.04715383738449036,
+   "p99": 0.3321318228630278
+  },
+  {
+   "feature": "securities_assets",
+   "group": "Liquidity",
+   "default": true,
+   "null_rate": 8.375791617005202e-07,
+   "p01": 0.0,
+   "median": 0.25020386598677014,
+   "p99": 0.7109294930754474
+  },
+  {
+   "feature": "brokered_deposits",
+   "group": "Liquidity",
+   "default": true,
+   "null_rate": 0.019035661607967724,
+   "p01": 0.0,
+   "median": 0.0,
+   "p99": 0.22727735991357345
+  },
+  {
+   "feature": "log_assets",
+   "group": "Size",
+   "default": true,
+   "null_rate": 0.0,
+   "p01": 8.463370384718731,
+   "median": 11.037080810099484,
+   "p99": 15.602403203394614
+  },
+  {
+   "feature": "asset_growth4",
+   "group": "Size / growth",
+   "default": true,
+   "null_rate": 0.07780942896365493,
+   "p01": -0.21065989847715738,
+   "median": 0.056450393224440454,
+   "p99": 1.3368808841588211
+  },
+  {
+   "feature": "loan_growth4",
+   "group": "Size / growth",
+   "default": true,
+   "null_rate": 0.08561734190902717,
+   "p01": -0.2957955727232209,
+   "median": 0.07109146977393288,
+   "p99": 1.957317073170732
+  },
+  {
+   "feature": "loans_assets",
+   "group": "Composition",
+   "default": true,
+   "null_rate": 8.375791617005202e-07,
+   "p01": 0.00958090811900317,
+   "median": 0.5974421515872825,
+   "p99": 0.9065180836207142
+  },
+  {
+   "feature": "re_loans_share",
+   "group": "Composition",
+   "default": true,
+   "null_rate": 0.009115374016786762,
+   "p01": 0.018235294117647058,
+   "median": 0.5700815568913933,
+   "p99": 1.0357135862433655
+  },
+  {
+   "feature": "ci_loans_share",
+   "group": "Composition",
+   "default": true,
+   "null_rate": 0.009115374016786762,
+   "p01": 0.0,
+   "median": 0.13423588204798376,
+   "p99": 0.6211461625618702
+  },
+  {
+   "feature": "consumer_share",
+   "group": "Composition",
+   "default": true,
+   "null_rate": 0.011273815516489002,
+   "p01": 0.000591049817056009,
+   "median": 0.12224352828379674,
+   "p99": 0.6904985458126274
+  },
+  {
+   "feature": "lev_missing",
+   "group": "Optional",
+   "default": false,
+   "null_rate": 0.0,
+   "p01": 0.0,
+   "median": 0.0,
+   "p99": 1.0
+  },
+  {
+   "feature": "rbc_total",
+   "group": "Optional",
+   "default": false,
+   "null_rate": 0.3525362315805873,
+   "p01": 6.136208743062993,
+   "median": 15.387882820648741,
+   "p99": 141.3368513632366
+  },
+  {
+   "feature": "rbc_missing",
+   "group": "Optional",
+   "default": false,
+   "null_rate": 0.0,
+   "p01": 0.0,
+   "median": 0.0,
+   "p99": 1.0
+  }
+ ],
+ "n_default_features": 29,
+ "split": {
+  "dev_end_qi": 8027,
+  "gap_end_qi": 8031,
+  "last_label_qi": 8101
+ }
+}

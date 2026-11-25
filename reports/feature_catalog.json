@@ -1,0 +1,226 @@
+[
+ {
+  "name": "eq_assets",
+  "group": "Capital",
+  "formula": "EQ / ASSET",
+  "motivation": "Đệm vốn trước thua lỗ; vốn mỏng đi trước đổ vỡ",
+  "default": true
+ },
+ {
+  "name": "lev_ratio",
+  "group": "Capital",
+  "formula": "RBC1AAJ (0 coi là thiếu)",
+  "motivation": "Tỷ lệ đòn bẩy Tier 1 theo quy định",
+  "default": true
+ },
+ {
+  "name": "eq_assets_chg4",
+  "group": "Capital",
+  "formula": "eq_assets - cùng chỉ số 4 quý trước",
+  "motivation": "Vốn bị bào mòn trong một năm",
+  "default": true
+ },
+ {
+  "name": "nclnls_loans",
+  "group": "Asset quality",
+  "formula": "NCLNLS / LNLSGR",
+  "motivation": "Tỷ trọng nợ không sinh lãi trong tổng dư nợ",
+  "default": true
+ },
+ {
+  "name": "nclnls_assets",
+  "group": "Asset quality",
+  "formula": "NCLNLS / ASSET",
+  "motivation": "Nợ xấu so với toàn bộ bảng cân đối",
+  "default": true
+ },
+ {
+  "name": "p9_assets",
+  "group": "Asset quality",
+  "formula": "P9ASSET / ASSET",
+  "motivation": "Nợ quá hạn 90+ ngày so với tài sản",
+  "default": true
+ },
+ {
+  "name": "nonaccrual_assets",
+  "group": "Asset quality",
+  "formula": "NAASSET / ASSET",
+  "motivation": "Tài sản ngừng ghi nhận lãi",
+  "default": true
+ },
+ {
+  "name": "ore_assets",
+  "group": "Asset quality",
+  "formula": "ORE / ASSET",
+  "motivation": "Bất động sản thu hồi: dấu hiệu tổn thất tín dụng trước đó",
+  "default": true
+ },
+ {
+  "name": "reserve_loans",
+  "group": "Asset quality",
+  "formula": "LNATRES / LNLSGR",
+  "motivation": "Dự phòng tổn thất so với dư nợ",
+  "default": true
+ },
+ {
+  "name": "texas_ratio",
+  "group": "Asset quality",
+  "formula": "(NCLNLS + ORE) / (EQ + LNATRES), kẹp [0,10]; 10 nếu mẫu số <= 0",
+  "motivation": "Tài sản xấu so với khả năng hấp thụ tổn thất",
+  "default": true
+ },
+ {
+  "name": "nco_assets_q",
+  "group": "Asset quality",
+  "formula": "NTLNLS_Q / ASSET",
+  "motivation": "Xóa nợ ròng của quý",
+  "default": true
+ },
+ {
+  "name": "provision_assets_q",
+  "group": "Asset quality",
+  "formula": "ELNATR_Q / ASSET",
+  "motivation": "Chi phí dự phòng của quý",
+  "default": true
+ },
+ {
+  "name": "nclnls_loans_chg4",
+  "group": "Asset quality",
+  "formula": "nclnls_loans - cùng chỉ số 4 quý trước",
+  "motivation": "Chất lượng nợ xấu đi trong một năm",
+  "default": true
+ },
+ {
+  "name": "roa",
+  "group": "Earnings",
+  "formula": "ROA (như báo cáo, đã quy năm)",
+  "motivation": "Khả năng sinh lời",
+  "default": true
+ },
+ {
+  "name": "roa_q_ann",
+  "group": "Earnings",
+  "formula": "400 * NETINC_Q / ASSET",
+  "motivation": "Lợi nhuận quý gần nhất (từ số liệu từng quý)",
+  "default": true
+ },
+ {
+  "name": "nim",
+  "group": "Earnings",
+  "formula": "NIMY",
+  "motivation": "Biên lãi thuần",
+  "default": true
+ },
+ {
+  "name": "overhead_ratio",
+  "group": "Earnings / Management",
+  "formula": "NONIX_Q / (INTINC_Q - EINTEXP_Q + NONII_Q), kẹp [0,10]; 10 nếu mẫu số <= 0",
+  "motivation": "Hiệu quả chi phí (đại diện cho quản trị)",
+  "default": true
+ },
+ {
+  "name": "roa_chg4",
+  "group": "Earnings",
+  "formula": "ROA - cùng chỉ số 4 quý trước",
+  "motivation": "Biến động khả năng sinh lời",
+  "default": true
+ },
+ {
+  "name": "loans_deposits",
+  "group": "Liquidity",
+  "formula": "LNLSNET / DEP",
+  "motivation": "Tỷ lệ cho vay trên tiền gửi",
+  "default": true
+ },
+ {
+  "name": "cash_assets",
+  "group": "Liquidity",
+  "formula": "CHBAL / ASSET",
+  "motivation": "Tiền mặt và tiền gửi tại tổ chức khác",
+  "default": true
+ },
+ {
+  "name": "securities_assets",
+  "group": "Liquidity",
+  "formula": "SC / ASSET",
+  "motivation": "Chứng khoán nắm giữ",
+  "default": true
+ },
+ {
+  "name": "brokered_deposits",
+  "group": "Liquidity",
+  "formula": "BRO / DEP",
+  "motivation": "Phụ thuộc tiền gửi môi giới, nhạy cảm với lãi suất",
+  "default": true
+ },
+ {
+  "name": "log_assets",
+  "group": "Size",
+  "formula": "ln(ASSET)",
+  "motivation": "Quy mô",
+  "default": true
+ },
+ {
+  "name": "asset_growth4",
+  "group": "Size / growth",
+  "formula": "ASSET / ASSET(-4 quý) - 1",
+  "motivation": "Tăng trưởng nhanh thường đi kèm rủi ro",
+  "default": true
+ },
+ {
+  "name": "loan_growth4",
+  "group": "Size / growth",
+  "formula": "LNLSGR / LNLSGR(-4 quý) - 1",
+  "motivation": "Tăng trưởng tín dụng nhanh",
+  "default": true
+ },
+ {
+  "name": "loans_assets",
+  "group": "Composition",
+  "formula": "LNLSGR / ASSET",
+  "motivation": "Mức độ tập trung vào cho vay",
+  "default": true
+ },
+ {
+  "name": "re_loans_share",
+  "group": "Composition",
+  "formula": "LNRE / LNLSGR",
+  "motivation": "Tập trung bất động sản",
+  "default": true
+ },
+ {
+  "name": "ci_loans_share",
+  "group": "Composition",
+  "formula": "LNCI / LNLSGR",
+  "motivation": "Tỷ trọng cho vay thương mại và công nghiệp",
+  "default": true
+ },
+ {
+  "name": "consumer_share",
+  "group": "Composition",
+  "formula": "LNCON / LNLSGR",
+  "motivation": "Tỷ trọng cho vay tiêu dùng",
+  "default": true
+ },
+ {
+  "name": "lev_missing",
+  "group": "Optional",
+  "formula": "1 nếu RBC1AAJ rỗng hoặc bằng 0",
+  "motivation": "Cờ thiếu; nhận diện giai đoạn",
+  "default": false
+ },
+ {
+  "name": "rbc_total",
+  "group": "Optional",
+  "formula": "RBCRWAJ (0 coi là thiếu)",
+  "motivation": "Thiếu 100% giai đoạn 1984-89",
+  "default": false
+ },
+ {
+  "name": "rbc_missing",
+  "group": "Optional",
+  "formula": "1 nếu RBCRWAJ rỗng hoặc bằng 0",
+  "motivation": "Cờ thiếu; nhận diện giai đoạn",
+  "default": false
+ }
+]
