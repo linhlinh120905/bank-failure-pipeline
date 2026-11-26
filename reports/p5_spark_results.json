@@ -1,0 +1,39 @@
+{
+ "spark": "4.0.5",
+ "cpu_cores_vm": 2,
+ "fold": "1991-1991 (development)",
+ "train_rows": 418728,
+ "valid_rows": 59925,
+ "mllib": {
+  "lr": {
+   "pr_auc": 0.20713023554858512,
+   "roc_auc": 0.9399606545072129,
+   "fit_and_score_seconds": 49.5
+  },
+  "gbt": {
+   "pr_auc": 0.30879741683935913,
+   "roc_auc": 0.9710458001693547,
+   "fit_and_score_seconds": 71.8
+  }
+ },
+ "sklearn_same_fold": {
+  "lr": {
+   "block": "1991-1991",
+   "n_train": 418728,
+   "pos_train": 6075,
+   "n": 59925,
+   "pos": 777,
+   "pr_auc": 0.28831511487777084,
+   "roc_auc": 0.9673998622568313
+  },
+  "hgb": {
+   "block": "1991-1991",
+   "n_train": 418728,
+   "pos_train": 6075,
+   "n": 59925,
+   "pos": 777,
+   "pr_auc": 0.4023132428518249,
+   "roc_auc": 0.9714514531921714
+  }
+ }
+}

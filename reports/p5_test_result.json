@@ -1,0 +1,392 @@
+{
+ "selection_sha256": "009b709cc8d55a992341374a703de680b83454a61fa55046e5d24f8e1226d48c",
+ "n_dev": 1193917,
+ "n_test": 435446,
+ "pos_test": 2134,
+ "test_positive_rate": 0.004900722477643611,
+ "models": {
+  "lr": {
+   "threshold": 0.009809547315391897,
+   "alarms": 8548,
+   "tp": 1867,
+   "fp": 6681,
+   "fn": 267,
+   "recall": 0.8748828491096532,
+   "precision": 0.21841366401497425,
+   "alarm_rate": 0.019630447862651168,
+   "false_alarm_rate": 0.015418451369913596,
+   "cost_vs_no_alarm": {
+    "0.005": 0.1407708528584817,
+    "0.01": 0.15642455482661669,
+    "0.02": 0.1877319587628866,
+    "0.05": 0.28165417057169634,
+    "0.1": 0.4381911902530459
+   },
+   "cost_alarm_all": {
+    "0.005": 1.0152577319587628,
+    "0.01": 2.0305154639175256,
+    "0.02": 4.061030927835051,
+    "0.05": 10.15257731958763,
+    "0.1": 20.30515463917526
+   },
+   "n": 435446,
+   "pos": 2134,
+   "pr_auc": 0.6074776422805445,
+   "roc_auc": 0.9845656708388223,
+   "recall_at_fpr_5pct": 0.9493908153701968,
+   "bootstrap_95ci": {
+    "pr_auc": [
+     0.5693877480622984,
+     0.6369243404739836
+    ],
+    "recall": [
+     0.8544680686144176,
+     0.8949794729213867
+    ],
+    "cost": [
+     0.16656394470422825,
+     0.21076006877038986
+    ]
+   },
+   "by_year": [
+    {
+     "year": 2008,
+     "rows": 34003,
+     "positives": 355,
+     "alarms": 835,
+     "tp": 246
+    },
+    {
+     "year": 2009,
+     "rows": 32916,
+     "positives": 670,
+     "alarms": 1816,
+     "tp": 592
+    },
+    {
+     "year": 2010,
+     "rows": 31545,
+     "positives": 457,
+     "alarms": 1741,
+     "tp": 435
+    },
+    {
+     "year": 2011,
+     "rows": 30230,
+     "positives": 269,
+     "alarms": 1276,
+     "tp": 267
+    },
+    {
+     "year": 2012,
+     "rows": 29157,
+     "positives": 129,
+     "alarms": 835,
+     "tp": 129
+    },
+    {
+     "year": 2013,
+     "rows": 27989,
+     "positives": 79,
+     "alarms": 595,
+     "tp": 71
+    },
+    {
+     "year": 2014,
+     "rows": 26805,
+     "positives": 46,
+     "alarms": 362,
+     "tp": 43
+    },
+    {
+     "year": 2015,
+     "rows": 25521,
+     "positives": 23,
+     "alarms": 231,
+     "tp": 21
+    },
+    {
+     "year": 2016,
+     "rows": 24356,
+     "positives": 29,
+     "alarms": 163,
+     "tp": 26
+    },
+    {
+     "year": 2017,
+     "rows": 23325,
+     "positives": 9,
+     "alarms": 114,
+     "tp": 6
+    },
+    {
+     "year": 2018,
+     "rows": 22301,
+     "positives": 6,
+     "alarms": 75,
+     "tp": 2
+    },
+    {
+     "year": 2019,
+     "rows": 21366,
+     "positives": 19,
+     "alarms": 46,
+     "tp": 12
+    },
+    {
+     "year": 2020,
+     "rows": 20478,
+     "positives": 7,
+     "alarms": 45,
+     "tp": 7
+    },
+    {
+     "year": 2021,
+     "rows": 19942,
+     "positives": 0,
+     "alarms": 15,
+     "tp": 0
+    },
+    {
+     "year": 2022,
+     "rows": 19285,
+     "positives": 14,
+     "alarms": 207,
+     "tp": 1
+    },
+    {
+     "year": 2023,
+     "rows": 18798,
+     "positives": 9,
+     "alarms": 103,
+     "tp": 6
+    },
+    {
+     "year": 2024,
+     "rows": 18399,
+     "positives": 9,
+     "alarms": 55,
+     "tp": 0
+    },
+    {
+     "year": 2025,
+     "rows": 9030,
+     "positives": 4,
+     "alarms": 34,
+     "tp": 3
+    }
+   ],
+   "bank_level": {
+    "failed_banks_with_positive_rows": 545,
+    "detected": 521,
+    "share_detected": 0.9559633027522936,
+    "median_lead_quarters": 4.0,
+    "share_lead_ge_2_quarters": 0.9692898272552783
+   }
+  },
+  "hgb": {
+   "threshold": 0.007532788888366498,
+   "alarms": 13917,
+   "tp": 1961,
+   "fp": 11956,
+   "fn": 173,
+   "recall": 0.9189315838800375,
+   "precision": 0.14090680462743407,
+   "alarm_rate": 0.03196033492097757,
+   "false_alarm_rate": 0.027592127612436304,
+   "cost_vs_no_alarm": {
+    "0.005": 0.10908153701968135,
+    "0.01": 0.13709465791940018,
+    "0.02": 0.19312089971883786,
+    "0.05": 0.3611996251171509,
+    "0.1": 0.6413308341143393
+   },
+   "cost_alarm_all": {
+    "0.005": 1.0152577319587628,
+    "0.01": 2.0305154639175256,
+    "0.02": 4.061030927835051,
+    "0.05": 10.15257731958763,
+    "0.1": 20.30515463917526
+   },
+   "n": 435446,
+   "pos": 2134,
+   "pr_auc": 0.5954717340473318,
+   "roc_auc": 0.9858371031966715,
+   "recall_at_fpr_5pct": 0.9414245548266167,
+   "bootstrap_95ci": {
+    "pr_auc": [
+     0.5567145699191031,
+     0.6276960269674533
+    ],
+    "recall": [
+     0.9020145964248673,
+     0.936061945214053
+    ],
+    "cost": [
+     0.1732740003869154,
+     0.21478059867488306
+    ]
+   },
+   "by_year": [
+    {
+     "year": 2008,
+     "rows": 34003,
+     "positives": 355,
+     "alarms": 1299,
+     "tp": 277
+    },
+    {
+     "year": 2009,
+     "rows": 32916,
+     "positives": 670,
+     "alarms": 2875,
+     "tp": 631
+    },
+    {
+     "year": 2010,
+     "rows": 31545,
+     "positives": 457,
+     "alarms": 2729,
+     "tp": 444
+    },
+    {
+     "year": 2011,
+     "rows": 30230,
+     "positives": 269,
+     "alarms": 2147,
+     "tp": 268
+    },
+    {
+     "year": 2012,
+     "rows": 29157,
+     "positives": 129,
+     "alarms": 1467,
+     "tp": 129
+    },
+    {
+     "year": 2013,
+     "rows": 27989,
+     "positives": 79,
+     "alarms": 991,
+     "tp": 74
+    },
+    {
+     "year": 2014,
+     "rows": 26805,
+     "positives": 46,
+     "alarms": 614,
+     "tp": 45
+    },
+    {
+     "year": 2015,
+     "rows": 25521,
+     "positives": 23,
+     "alarms": 402,
+     "tp": 23
+    },
+    {
+     "year": 2016,
+     "rows": 24356,
+     "positives": 29,
+     "alarms": 299,
+     "tp": 26
+    },
+    {
+     "year": 2017,
+     "rows": 23325,
+     "positives": 9,
+     "alarms": 197,
+     "tp": 6
+    },
+    {
+     "year": 2018,
+     "rows": 22301,
+     "positives": 6,
+     "alarms": 131,
+     "tp": 3
+    },
+    {
+     "year": 2019,
+     "rows": 21366,
+     "positives": 19,
+     "alarms": 95,
+     "tp": 17
+    },
+    {
+     "year": 2020,
+     "rows": 20478,
+     "positives": 7,
+     "alarms": 108,
+     "tp": 7
+    },
+    {
+     "year": 2021,
+     "rows": 19942,
+     "positives": 0,
+     "alarms": 53,
+     "tp": 0
+    },
+    {
+     "year": 2022,
+     "rows": 19285,
+     "positives": 14,
+     "alarms": 121,
+     "tp": 1
+    },
+    {
+     "year": 2023,
+     "rows": 18798,
+     "positives": 9,
+     "alarms": 168,
+     "tp": 6
+    },
+    {
+     "year": 2024,
+     "rows": 18399,
+     "positives": 9,
+     "alarms": 152,
+     "tp": 1
+    },
+    {
+     "year": 2025,
+     "rows": 9030,
+     "positives": 4,
+     "alarms": 69,
+     "tp": 3
+    }
+   ],
+   "bank_level": {
+    "failed_banks_with_positive_rows": 545,
+    "detected": 529,
+    "share_detected": 0.9706422018348624,
+    "median_lead_quarters": 4.0,
+    "share_lead_ge_2_quarters": 0.9697542533081286
+   }
+  }
+ },
+ "rules": {
+  "texas_ratio": {
+   "n": 435446,
+   "pos": 2134,
+   "pr_auc": 0.3441114458263309,
+   "roc_auc": 0.9674976892309151
+  },
+  "neg_eq_assets": {
+   "n": 435446,
+   "pos": 2134,
+   "pr_auc": 0.28074142414876374,
+   "roc_auc": 0.9528984338030766
+  }
+ },
+ "lr_top_coefficients_standardised": {
+  "eq_assets": -2.1385405559453985,
+  "lev_ratio": -1.2501582215130027,
+  "loans_assets": -0.3591395658346472,
+  "cash_assets": -0.31003842941462856,
+  "asset_growth4": -0.27874885653675574,
+  "loans_deposits": 0.2519005286959518,
+  "re_loans_share": -0.24991767796277542,
+  "securities_assets": -0.24438954192206314
+ },
+ "seconds": 179
+}
